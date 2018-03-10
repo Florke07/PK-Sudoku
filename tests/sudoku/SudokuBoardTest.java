@@ -12,9 +12,9 @@ class SudokuBoardTest {
         SudokuBoard sud = new SudokuBoard();
         sud.fillBoard();
 
-        for (int i=0;i<9;i++){
-            for (int j=0;j<9;j++){
-                assertEquals(false, sud.isOk(i,j,sud.getValue(i,j)));
+        for (int i=0; i < 9; i++) {
+            for (int j=0; j < 9; j++) {
+                assertEquals(false, sud.isOk(i, j, sud.getValue(i, j)));
             }
         }
     }
@@ -25,17 +25,17 @@ class SudokuBoardTest {
         SudokuBoard sud = new SudokuBoard();
         sud.fillBoard();
 
-        for (int i=0;i<9;i++){
-            for (int j=0;j<9;j++){
-                board2[i][j]=sud.getValue(i,j);
+        for (int i=0; i < 9; i++) {
+            for (int j=0; j < 9; j++) {
+                board2[i][j] = sud.getValue(i, j);
             }
         }
 
         sud.fillBoard();
 
-        for (int i=0;i<9;i++){
-            for (int j=0;j<9;j++){
-                assertEquals(board2[i][j], sud.getValue(i,j));
+        for (int i=0; i < 9; i++) {
+            for (int j=0; j < 9; j++) {
+                assertEquals(board2[i][j], sud.getValue(i, j));
             }
         }
     }

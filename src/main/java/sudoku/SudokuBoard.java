@@ -15,15 +15,14 @@ public class SudokuBoard {
 
     public void fillBoard() {
         //todo automatyczne rozwiazanie sudoku algorytmem backtrackingu
-        if (solve(0,0)) {
+        if (solve(0, 0)) {
             show();
-        }
-        else {
+        } else {
             System.out.println("Brak rozwiazan");
         }
     }
 
-    public void show() {
+    private void show() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 System.out.print(board[i][j] + " ");
@@ -33,44 +32,52 @@ public class SudokuBoard {
         System.out.println();
     }
 
-    public boolean isOk(int currentRowPosition, int currentColumnPosition, int valueToCheck){
+    public boolean isOk(int currentRowPosition, int currentColumnPosition, int valueToCheck) {
+        for (int i=0; i < 9; i++) {
+            if (board[currentRowPosition][i] == valueToCheck) {
+                return false;
+            }
+        }
 
-        for(int i=0;i<9;i++)
-            if (board[currentRowPosition][i] == valueToCheck) return false;
+        for (int i=0; i < 9; i++) {
+            if (board[i][currentColumnPosition] == valueToCheck) {
+                return false;
+            }
+        }
 
-        for (int i=0;i<9;i++)
-            if (board[i][currentColumnPosition] == valueToCheck) return false;
 
-
-        int squareFirstRowNumber = 3 * (currentRowPosition/3);
-        int squareFirstColumnNumber = 3 * (currentColumnPosition/3);
+        int squareFirstRowNumber = 3 * (currentRowPosition / 3);
+        int squareFirstColumnNumber = 3 * (currentColumnPosition / 3);
 
         int squareEndRowNumber = squareFirstRowNumber + 2;
         int squareEndColumnNumber = squareFirstColumnNumber + 2;
 
-        for (int x = squareFirstRowNumber; x <= squareEndRowNumber; x++)
-            for (int y = squareFirstColumnNumber; y <= squareEndColumnNumber; y++)
-                if (board[x][y] == valueToCheck) return false;
-
+        for (int x = squareFirstRowNumber; x <= squareEndRowNumber; x++) {
+            for (int y = squareFirstColumnNumber; y <= squareEndColumnNumber; y++) {
+                if (board[x][y] == valueToCheck) {
+                    return false;
+                }
+            }
+        }
 
         return true;
     }
 
-    public int getValue(int i, int j){
+    public int getValue(int i, int j) {
         return board[i][j];
     }
 
-    private boolean solve(int currentRowPosition,int currentColumnPosition){
+    private boolean solve(int currentRowPosition, int currentColumnPosition) {
         boolean solved;
-        if(currentColumnPosition == 9){
+        if (currentColumnPosition == 9) {
             return true;
         }
 
         if (board[currentRowPosition][currentColumnPosition] != 0) {
-            if(currentRowPosition + 1 == 9){
-                return solve(0,currentColumnPosition+1);
-            }else{
-                return solve(currentRowPosition+1,currentColumnPosition);
+            if (currentRowPosition + 1 == 9) {
+                return solve(0, currentColumnPosition + 1);
+            } else {
+                return solve(currentRowPosition + 1, currentColumnPosition);
             }
         }
         for (int i = 1; i <= 9; i++) {
@@ -80,15 +87,14 @@ public class SudokuBoard {
                 continue;
             }
             board[currentRowPosition][currentColumnPosition] = i;
-            if(currentRowPosition + 1 == 9){
-                solved = solve(0,currentColumnPosition+1);
-            }else{
-            solved = solve(currentRowPosition + 1,currentColumnPosition);
+            if (currentRowPosition + 1 == 9) {
+                solved = solve(0, currentColumnPosition + 1);
+            } else {
+            solved = solve(currentRowPosition + 1, currentColumnPosition);
             }
-            if (solved){
+            if (solved) {
                 return true;
-            }
-            else{
+            } else {
                 board[currentRowPosition][currentColumnPosition] = 0;
             }
         }
