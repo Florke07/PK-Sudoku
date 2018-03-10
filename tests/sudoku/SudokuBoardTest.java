@@ -14,10 +14,7 @@ class SudokuBoardTest {
 
         for (int i=0;i<9;i++){
             for (int j=0;j<9;j++){
-                if(sud.isOk(i,j,sud.getValue(i,j))) {
-                    System.out.println("Error, wrong number in board");
-                    return;
-                }
+                assertEquals(false, sud.isOk(i,j,sud.getValue(i,j)));
             }
         }
     }
@@ -38,10 +35,7 @@ class SudokuBoardTest {
 
         for (int i=0;i<9;i++){
             for (int j=0;j<9;j++){
-                if (board2[i][j] != sud.getValue(i,j)) {
-                    System.out.println("Error");
-                    break;
-                }
+                assertEquals(board2[i][j], sud.getValue(i,j));
             }
         }
     }
