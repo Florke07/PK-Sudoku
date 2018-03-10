@@ -6,5 +6,6 @@ public class Main {
         System.out.println("Chyba dziala");
         SudokuBoard sud = new SudokuBoard();
         sud.show();
+        sud.fillBoard();
     }
 }
