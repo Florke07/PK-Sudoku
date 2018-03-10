@@ -33,7 +33,7 @@ public class SudokuBoard {
         System.out.println();
     }
 
-    private boolean isOk(int currentRowPosition, int currentColumnPosition, int valueToCheck){
+    public boolean isOk(int currentRowPosition, int currentColumnPosition, int valueToCheck){
 
         for(int i=0;i<9;i++)
             if (board[currentRowPosition][i] == valueToCheck) return false;
@@ -55,6 +55,11 @@ public class SudokuBoard {
 
         return true;
     }
+
+    public int getValue(int i, int j){
+        return board[i][j];
+    }
+
     private boolean solve(int currentRowPosition,int currentColumnPosition){
         boolean solved;
         if(currentColumnPosition == 9){
