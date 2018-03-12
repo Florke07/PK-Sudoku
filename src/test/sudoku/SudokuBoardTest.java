@@ -2,6 +2,8 @@ package sudoku;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SudokuBoardTest {
@@ -21,22 +23,24 @@ class SudokuBoardTest {
 
     @Test
     void secondFillBoard() {
-        int board2[][] = new int[9][9];
+
+        Random rng = new Random();
+        Random rng2 = new Random();
+        int i, j;
+
         SudokuBoard sud = new SudokuBoard();
         sud.fillBoard();
 
-        for (int i=0; i < 9; i++) {
-            for (int j=0; j < 9; j++) {
-                board2[i][j] = sud.getValue(i, j);
-            }
-        }
+        SudokuBoard sud2 = new SudokuBoard();
+        sud2.fillBoard();
 
-        sud.fillBoard();
+        i = rng.nextInt(8)+1;
+        j = rng2.nextInt(8)+1;
 
-        for (int i=0; i < 9; i++) {
-            for (int j=0; j < 9; j++) {
-                assertEquals(board2[i][j], sud.getValue(i, j));
-            }
-        }
+        if (sud2.getValue(i, j) == sud.getValue(i, j) && sud2.getValue(j, i) == sud.getValue(j, i)) {
+            assertTrue(false);
+        } else { assertTrue(true); }
+
+
     }
 }

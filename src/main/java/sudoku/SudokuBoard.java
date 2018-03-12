@@ -1,5 +1,8 @@
 package sudoku;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class SudokuBoard {
 
     private int[][] board = {
@@ -13,8 +16,19 @@ public class SudokuBoard {
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0}};
 
+    private ArrayList<Integer> valuesToInsert;
+
+    private void initValuesToInsert() {
+        valuesToInsert = new ArrayList<Integer>();
+        valuesToInsert.clear();
+        for (int i = 1; i <= 9; i++) {
+            valuesToInsert.add(i);
+        }
+    }
+
     public void fillBoard() {
-        //todo automatyczne rozwiazanie sudoku algorytmem backtrackingu
+        initValuesToInsert();
+        Collections.shuffle(valuesToInsert);
         if (solve(0, 0)) {
             show();
         } else {
@@ -45,7 +59,6 @@ public class SudokuBoard {
             }
         }
 
-
         int squareFirstRowNumber = 3 * (currentRowPosition / 3);
         int squareFirstColumnNumber = 3 * (currentColumnPosition / 3);
 
@@ -69,6 +82,9 @@ public class SudokuBoard {
 
     private boolean solve(int currentRowPosition, int currentColumnPosition) {
         boolean solved;
+
+        Collections.shuffle(valuesToInsert);
+
         if (currentColumnPosition == 9) {
             return true;
         }
@@ -81,12 +97,12 @@ public class SudokuBoard {
             }
         }
         for (int i = 1; i <= 9; i++) {
-            boolean valid = isOk(currentRowPosition, currentColumnPosition, i);
+            boolean valid = isOk(currentRowPosition, currentColumnPosition, valuesToInsert.get(i - 1));
 
             if (!valid) {
                 continue;
             }
-            board[currentRowPosition][currentColumnPosition] = i;
+            board[currentRowPosition][currentColumnPosition] = valuesToInsert.get(i - 1);
             if (currentRowPosition + 1 == 9) {
                 solved = solve(0, currentColumnPosition + 1);
             } else {
