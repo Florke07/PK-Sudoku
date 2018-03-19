@@ -26,7 +26,7 @@ class SudokuBoardTest {
 
         Random rng = new Random();
         Random rng2 = new Random();
-        int i, j, flaga;
+        int i, j, flaga=0;
 
         SudokuBoard sud = new SudokuBoard();
         sud.fillBoard();
@@ -34,9 +34,9 @@ class SudokuBoardTest {
         SudokuBoard sud2 = new SudokuBoard();
         sud2.fillBoard();
 
-        for (int k = 0;k < 9;k++ ){
-            for(int l = 0;k < 9;l++ ){
-                if(sud.get(k,l) == sud2.get(k,l)) {
+        for (int k = 0;k < 9; k++ ) {
+            for(int l = 0;l < 9; l++ ) {
+                if(sud.getValue(k,l) == sud2.getValue(k,l)) {
                     flaga++;
                 }
             }
