@@ -4,7 +4,7 @@ import java.util.Collections;
 
 public class BacktrackingSudokuSolver implements SudokuSolver {
 
-    public boolean solve(SudokuBoard sb, int currentRowPosition, int currentColumnPosition) {
+    public boolean solve(final SudokuBoard sb, int currentRowPosition, int currentColumnPosition) {
         boolean solved;
 
         Collections.shuffle(sb.valuesToInsert);
@@ -15,9 +15,9 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
 
         if (sb.board[currentRowPosition][currentColumnPosition] != 0) {
             if (currentRowPosition + 1 == 9) {
-                return solve(sb,0, currentColumnPosition + 1);
+                return solve(sb, 0, currentColumnPosition + 1);
             } else {
-                return solve(sb,currentRowPosition + 1, currentColumnPosition);
+                return solve(sb, currentRowPosition + 1, currentColumnPosition);
             }
         }
         for (int i = 1; i <= 9; i++) {
@@ -28,9 +28,9 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
             }
             sb.board[currentRowPosition][currentColumnPosition] = sb.valuesToInsert.get(i - 1);
             if (currentRowPosition + 1 == 9) {
-                solved = solve(sb,0, currentColumnPosition + 1);
+                solved = solve(sb, 0, currentColumnPosition + 1);
             } else {
-                solved = solve(sb,currentRowPosition + 1, currentColumnPosition);
+                solved = solve(sb, currentRowPosition + 1, currentColumnPosition);
             }
             if (solved) {
                 return true;

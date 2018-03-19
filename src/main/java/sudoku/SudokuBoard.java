@@ -30,7 +30,7 @@ public class SudokuBoard {
 
     public void fillBoard() {
         initValuesToInsert();
-        if (BSS.solve(this,0, 0)) {
+        if (BSS.solve(this, 0, 0)) {
             show();
         } else {
             System.out.println("Brak rozwiazan");
@@ -84,7 +84,9 @@ public class SudokuBoard {
     private boolean checkBoard() {
         for (int i=0; i < 9; i++) {
             for (int j=0; j < 9; j++) {
-                if (!isOk(i,j,getValue(i,j))) return false;
+                if (!isOk(i, j, getValue(i, j))) {
+                    return false;
+                }
             }
         }
         return true;
