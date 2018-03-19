@@ -5,7 +5,7 @@ import java.util.Collections;
 
 public class SudokuBoard {
 
-    private int[][] board = {
+    public int[][] board = {
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -16,7 +16,9 @@ public class SudokuBoard {
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0}};
 
-    private ArrayList<Integer> valuesToInsert;
+    public ArrayList<Integer> valuesToInsert;
+    private BacktrackingSudokuSolver BSS = new BacktrackingSudokuSolver();
+
 
     private void initValuesToInsert() {
         valuesToInsert = new ArrayList<Integer>();
@@ -28,8 +30,7 @@ public class SudokuBoard {
 
     public void fillBoard() {
         initValuesToInsert();
-        Collections.shuffle(valuesToInsert);
-        if (solve(0, 0)) {
+        if (BSS.solve(this,0, 0)) {
             show();
         } else {
             System.out.println("Brak rozwiazan");
@@ -76,45 +77,21 @@ public class SudokuBoard {
         return true;
     }
 
-    public int getValue(int i, int j) {
-        return board[i][j];
+    public int getValue(int x, int y) {
+        return board[x][y];
     }
 
-    private boolean solve(int currentRowPosition, int currentColumnPosition) {
-        boolean solved;
-
-        Collections.shuffle(valuesToInsert);
-
-        if (currentColumnPosition == 9) {
-            return true;
-        }
-
-        if (board[currentRowPosition][currentColumnPosition] != 0) {
-            if (currentRowPosition + 1 == 9) {
-                return solve(0, currentColumnPosition + 1);
-            } else {
-                return solve(currentRowPosition + 1, currentColumnPosition);
+    private boolean checkBoard() {
+        for (int i=0; i < 9; i++) {
+            for (int j=0; j < 9; j++) {
+                if (!isOk(i,j,getValue(i,j))) return false;
             }
         }
-        for (int i = 1; i <= 9; i++) {
-            boolean valid = isOk(currentRowPosition, currentColumnPosition, valuesToInsert.get(i - 1));
+        return true;
+    }
 
-            if (!valid) {
-                continue;
-            }
-            board[currentRowPosition][currentColumnPosition] = valuesToInsert.get(i - 1);
-            if (currentRowPosition + 1 == 9) {
-                solved = solve(0, currentColumnPosition + 1);
-            } else {
-            solved = solve(currentRowPosition + 1, currentColumnPosition);
-            }
-            if (solved) {
-                return true;
-            } else {
-                board[currentRowPosition][currentColumnPosition] = 0;
-            }
-        }
-        return false;
+    public void setValue(int x, int y, int value) {
+        board[x][y]=value;
     }
 }
 
