@@ -26,7 +26,7 @@ class SudokuBoardTest {
 
         Random rng = new Random();
         Random rng2 = new Random();
-        int i, j;
+        int i, j, flaga;
 
         SudokuBoard sud = new SudokuBoard();
         sud.fillBoard();
@@ -34,12 +34,14 @@ class SudokuBoardTest {
         SudokuBoard sud2 = new SudokuBoard();
         sud2.fillBoard();
 
-        i = rng.nextInt(8)+1;
-        j = rng2.nextInt(8)+1;
-
-        if (sud2.getValue(i, j) == sud.getValue(i, j) && sud2.getValue(j, i) == sud.getValue(j, i)) {
-            assertTrue(false);
-        } else { assertTrue(true); }
+        for (int k = 0;k < 9;k++ ){
+            for(int l = 0;k < 9;l++ ){
+                if(sud.get(k,l) == sud2.get(k,l)) {
+                    flaga++;
+                }
+            }
+        }
+        assertNotEquals(0,flaga);
 
 
     }
