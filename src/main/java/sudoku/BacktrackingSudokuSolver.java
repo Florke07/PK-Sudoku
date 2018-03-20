@@ -14,9 +14,7 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
         }
 
         if (sb.board[currentRowPosition][currentColumnPosition] != 0) {
-            if (currentRowPosition + 1 == 9) {
-                return solve(sb, 0, currentColumnPosition + 1);
-            } else {
+            if (!(currentRowPosition + 1 == 9)) {
                 return solve(sb, currentRowPosition + 1, currentColumnPosition);
             }
         }

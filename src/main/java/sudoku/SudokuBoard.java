@@ -8,11 +8,11 @@ public class SudokuBoard {
     public int[][] board = {
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 5, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 9},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0}};
 
@@ -28,12 +28,13 @@ public class SudokuBoard {
         }
     }
 
-    public void fillBoard() {
+    public boolean fillBoard() {
         initValuesToInsert();
         if (BSS.solve(this, 0, 0)) {
             show();
-        } else {
+            return true; } else {
             System.out.println("Brak rozwiazan");
+            return false;
         }
     }
 
@@ -81,7 +82,7 @@ public class SudokuBoard {
         return board[x][y];
     }
 
-    private boolean checkBoard() {
+    public boolean checkBoard() {
         for (int i=0; i < 9; i++) {
             for (int j=0; j < 9; j++) {
                 if (!isOk(i, j, getValue(i, j))) {
