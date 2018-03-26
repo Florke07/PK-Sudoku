@@ -114,26 +114,25 @@ public class SudokuBoard {
     }
 
     public SudokuRow getRow(int y) {
+        int var = y % 9;
         SudokuRow row = new SudokuRow();
         ArrayList<SudokuField> sf = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
+        int i = var;
             for (int j = 0; j < 9; j++) {
                 sf.add(board[i][j]);
             }
             row.add(sf);
-        }
         return row;
     }
 
     public SudokuColumn getColumn(int x) {
+        int var = x % 9;
         SudokuColumn col = new SudokuColumn();
         ArrayList<SudokuField> sf =new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
-            for (int j = i; j < 9; j += 9) {
-                sf.add(board[i][j]);
+            for (int j = 0; j < 9; j = j + 1) {
+                sf.add(board[j][var]);
             }
         col.add(sf);
-        }
         return col;
     }
 

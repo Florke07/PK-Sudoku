@@ -88,4 +88,26 @@ class SudokuBoardTest {
         assertEquals(true, sud.fillBoard());
 
     }
+
+    @Test
+    void sudRowTest() {
+        SudokuBoard sud  = new SudokuBoard();
+        sud.fillBoard();
+        int licznik=0;
+        for (int i=0;i<9;i++) {
+            if (sud.getRow(2).getIndeksValue(i) == sud.board[2][i].getFieldValue()) licznik++;
+        }
+        assertEquals(9,licznik);
+    }
+
+    @Test
+    void sudColTest() {
+        SudokuBoard sud = new SudokuBoard();
+        sud.fillBoard();
+        int licznik=0;
+        for (int i=0;i<9;i++){
+            if (sud.getColumn(2).getIndeksValue(i) == sud.board[i][2].getFieldValue()) licznik++;
+        }
+        assertEquals(9,licznik);
+    }
 }

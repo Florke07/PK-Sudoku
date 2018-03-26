@@ -29,6 +29,10 @@ public class SudokuElement {
         }
     }
 
+    public int getIndeksValue(int indeks) {
+        return elements.get(indeks).getFieldValue();
+    }
+
     public SudokuElement() {
         elements = new ArrayList<>();
     }
