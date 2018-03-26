@@ -21,7 +21,7 @@ public class SudokuElement {
         return true;
     }
 
-    protected void add(ArrayList<SudokuField> elemnt) {
+    public void add(ArrayList<SudokuField> elemnt) {
         for (int i=0;i<elemnt.size();i++) {
             elements.add(elemnt.get(i));
         }

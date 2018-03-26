@@ -115,15 +115,45 @@ public class SudokuBoard {
     }
 
     public SudokuRow getRow(int y) {
-        return new SudokuRow();
+        SudokuRow row = new SudokuRow();
+        ArrayList<SudokuField> sf = new ArrayList<>();
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                sf.add(board[i][j]);
+            }
+            row.add(sf);
+        }
+        return row;
     }
 
     public SudokuColumn getColumn(int x) {
-        return new SudokuColumn();
+        SudokuColumn col = new SudokuColumn();
+        ArrayList<SudokuField> sf =new ArrayList<>();
+        for (int i = 0; i < 9; i++) {
+            for (int j = i; j < 9; j+=9) {
+                sf.add(board[i][j]);
+            }
+        col.add(sf);
+        }
+        return col;
     }
 
     public SudokuBox getBox(int x, int y) {
-        return new SudokuBox();
+        SudokuBox sb = new SudokuBox();
+        ArrayList<SudokuField> sf = new ArrayList<>();
+        int squareFirstRowNumber = 3 * (x / 3);
+        int squareFirstColumnNumber = 3 * (y / 3);
+
+        int squareEndRowNumber = squareFirstRowNumber + 2;
+        int squareEndColumnNumber = squareFirstColumnNumber + 2;
+
+        for (int i = squareFirstRowNumber; i <= squareEndRowNumber; i++) {
+            for (int j = squareFirstColumnNumber; j <= squareEndColumnNumber; j++) {
+                sf.add(board[i][j]);
+            }
+        }
+        sb.add(sf);
+        return sb;
     }
 }
 
