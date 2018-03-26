@@ -55,4 +55,15 @@ class SudokuElementsTest {
         cl.add(sf);
         assertFalse(cl.verify());
     }
+
+    @Test
+    void sudokuBoxVerify() {
+        SudokuBox bx = new SudokuBox();
+        ArrayList<SudokuField> sf = new ArrayList<>();
+        for (int i=1;i<=9;i++) {
+            sf.add(new SudokuField(i));
+        }
+        bx.add(sf);
+        assertTrue(bx.verify());
+    }
 }
