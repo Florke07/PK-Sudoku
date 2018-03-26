@@ -1,5 +1,9 @@
 package sudoku;
 
+import SudokuParts.SudokuBox;
+import SudokuParts.SudokuColumn;
+import SudokuParts.SudokuRow;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -16,6 +20,11 @@ public class SudokuBoard {
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0}};
 
+    public ArrayList<SudokuField> sudokuBoard = new ArrayList<>();
+    public ArrayList<SudokuColumn> sudokuColumns = new ArrayList<>();
+    public ArrayList<SudokuRow> sudokuRows = new ArrayList<>();
+    public ArrayList<SudokuBox> sudokuBoxes = new ArrayList<>();
+
     public ArrayList<Integer> valuesToInsert;
     private BacktrackingSudokuSolver BSS = new BacktrackingSudokuSolver();
 
@@ -28,8 +37,16 @@ public class SudokuBoard {
         }
     }
 
+    private void makeBoard() {
+        for (int i=0;i<81;i++) {
+            sudokuBoard.add(new SudokuField());
+        }
+
+    }
+
     public boolean fillBoard() {
         initValuesToInsert();
+        makeBoard();
         if (BSS.solve(this, 0, 0)) {
             show();
             return true;
@@ -96,6 +113,18 @@ public class SudokuBoard {
 
     public void setValue(int x, int y, int value) {
         board[x][y]=value;
+    }
+
+    public SudokuRow getRow(int y) {
+        return new SudokuRow();
+    }
+
+    public SudokuColumn getColumn(int x) {
+        return new SudokuColumn();
+    }
+
+    public SudokuBox getBox(int x, int y) {
+        return new SudokuBox();
     }
 }
 
