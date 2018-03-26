@@ -32,7 +32,8 @@ public class SudokuBoard {
         initValuesToInsert();
         if (BSS.solve(this, 0, 0)) {
             show();
-            return true; } else {
+            return true;
+        } else {
             System.out.println("Brak rozwiazan");
             return false;
         }
