@@ -1,4 +1,4 @@
-package SudokuParts;
+package sudokupart;
 
 import sudoku.SudokuField;
 
@@ -8,21 +8,23 @@ public class SudokuElement {
     protected ArrayList<SudokuField> elements;
 
     protected boolean verify() {
-        int counter=0;
-        for (int i=1;i<=9;i++) {
+        int counter = 0;
+        for (int i = 1; i <= 9; i++) {
             for (SudokuField col : elements) {
                 if (col.getFieldValue() == i) {
                     counter++;
                 }
             }
-            if (counter>1) return false;
-            counter=0;
+            if (counter > 1) {
+                return false;
+            }
+            counter = 0;
         }
         return true;
     }
 
-    public void add(ArrayList<SudokuField> elemnt) {
-        for (int i=0;i<elemnt.size();i++) {
+    public void add(final ArrayList<SudokuField> elemnt) {
+        for (int i = 0; i < elemnt.size(); i++) {
             elements.add(elemnt.get(i));
         }
     }

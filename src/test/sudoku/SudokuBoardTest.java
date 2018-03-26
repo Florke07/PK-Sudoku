@@ -49,7 +49,7 @@ class SudokuBoardTest {
         assertEquals(true, sud.fillBoard());
         sud.setValue(0,0,9);
         sud.setValue(1,0,9);
-        assertEquals(false, sud.fillBoard());
+        assertEquals(false, sud.checkBoard());
 
     }
 
@@ -78,5 +78,14 @@ class SudokuBoardTest {
         isChechOK=sud.checkBoard();
         assertNotEquals(0,flaga);
         assertEquals(isFlagaTrue,isChechOK);
+    }
+
+    @Test
+    void ttest() {
+        SudokuBoard sud = new SudokuBoard();
+        sud.fillBoard();
+        sud.setValue(1,0,9);
+        assertEquals(true, sud.fillBoard());
+
     }
 }

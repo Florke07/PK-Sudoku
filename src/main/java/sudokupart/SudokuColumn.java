@@ -1,8 +1,4 @@
-package SudokuParts;
-
-import sudoku.SudokuField;
-
-import java.util.ArrayList;
+package sudokupart;
 
 public class SudokuColumn extends SudokuElement {
     public SudokuColumn() {

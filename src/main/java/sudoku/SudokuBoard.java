@@ -1,11 +1,10 @@
 package sudoku;
 
-import SudokuParts.SudokuBox;
-import SudokuParts.SudokuColumn;
-import SudokuParts.SudokuRow;
+import sudokupart.SudokuBox;
+import sudokupart.SudokuColumn;
+import sudokupart.SudokuRow;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class SudokuBoard {
 
@@ -21,7 +20,7 @@ public class SudokuBoard {
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0}};*/
 
-    public SudokuField[][] board;
+    public SudokuField[][] board = new SudokuField[9][9];
 
     public ArrayList<Integer> valuesToInsert;
     private BacktrackingSudokuSolver BSS = new BacktrackingSudokuSolver();
@@ -58,7 +57,7 @@ public class SudokuBoard {
     private void show() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                System.out.print(board[i][j] + " ");
+                System.out.print(board[i][j].getFieldValue() + " ");
             }
             System.out.println();
         }
@@ -130,7 +129,7 @@ public class SudokuBoard {
         SudokuColumn col = new SudokuColumn();
         ArrayList<SudokuField> sf =new ArrayList<>();
         for (int i = 0; i < 9; i++) {
-            for (int j = i; j < 9; j+=9) {
+            for (int j = i; j < 9; j += 9) {
                 sf.add(board[i][j]);
             }
         col.add(sf);

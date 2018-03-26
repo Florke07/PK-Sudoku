@@ -11,7 +11,7 @@ public class SudokuField {
         this.value=value;
     }
 
-    public  int getFieldValue(){
+    public  int getFieldValue() {
         return value;
     }
 

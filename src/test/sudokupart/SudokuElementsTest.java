@@ -1,7 +1,6 @@
-package SudokuParts;
+package sudokupart;
 
 import org.junit.jupiter.api.Test;
-import sudoku.SudokuBoard;
 import sudoku.SudokuField;
 
 import java.util.ArrayList;
@@ -65,5 +64,17 @@ class SudokuElementsTest {
         }
         bx.add(sf);
         assertTrue(bx.verify());
+    }
+
+    @Test
+    void sudokuBoxVerifyBad() {
+        SudokuBox sb = new SudokuBox();
+        ArrayList<SudokuField> sf = new ArrayList<>();
+        for (int i=1;i<=9;i++) {
+            sf.add(new SudokuField(i));
+        }
+        sf.get(3).setFieldValue(3);
+        sb.add(sf);
+        assertFalse(sb.verify());
     }
 }
