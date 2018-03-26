@@ -9,6 +9,7 @@ import java.util.Collections;
 
 public class SudokuBoard {
 
+    /*
     public int[][] board = {
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -18,12 +19,9 @@ public class SudokuBoard {
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 9},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0}};
+            {0, 0, 0, 0, 0, 0, 0, 0, 0}};*/
 
-    public ArrayList<SudokuField> sudokuBoard = new ArrayList<>();
-    public ArrayList<SudokuColumn> sudokuColumns = new ArrayList<>();
-    public ArrayList<SudokuRow> sudokuRows = new ArrayList<>();
-    public ArrayList<SudokuBox> sudokuBoxes = new ArrayList<>();
+    public SudokuField[][] board;
 
     public ArrayList<Integer> valuesToInsert;
     private BacktrackingSudokuSolver BSS = new BacktrackingSudokuSolver();
@@ -38,10 +36,11 @@ public class SudokuBoard {
     }
 
     private void makeBoard() {
-        for (int i=0;i<81;i++) {
-            sudokuBoard.add(new SudokuField());
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                board[i][j]= new SudokuField();
+            }
         }
-
     }
 
     public boolean fillBoard() {
@@ -68,13 +67,13 @@ public class SudokuBoard {
 
     public boolean isOk(int currentRowPosition, int currentColumnPosition, int valueToCheck) {
         for (int i=0; i < 9; i++) {
-            if (board[currentRowPosition][i] == valueToCheck) {
+            if (board[currentRowPosition][i].getFieldValue() == valueToCheck) {
                 return false;
             }
         }
 
         for (int i=0; i < 9; i++) {
-            if (board[i][currentColumnPosition] == valueToCheck) {
+            if (board[i][currentColumnPosition].getFieldValue() == valueToCheck) {
                 return false;
             }
         }
@@ -87,7 +86,7 @@ public class SudokuBoard {
 
         for (int x = squareFirstRowNumber; x <= squareEndRowNumber; x++) {
             for (int y = squareFirstColumnNumber; y <= squareEndColumnNumber; y++) {
-                if (board[x][y] == valueToCheck) {
+                if (board[x][y].getFieldValue() == valueToCheck) {
                     return false;
                 }
             }
@@ -97,7 +96,7 @@ public class SudokuBoard {
     }
 
     public int getValue(int x, int y) {
-        return board[x][y];
+        return board[x][y].getFieldValue();
     }
 
     public boolean checkBoard() {
@@ -112,7 +111,7 @@ public class SudokuBoard {
     }
 
     public void setValue(int x, int y, int value) {
-        board[x][y]=value;
+        board[x][y].setFieldValue(value);
     }
 
     public SudokuRow getRow(int y) {
