@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class SudokuElement {
     protected ArrayList<SudokuField> elements;
 
-    protected boolean verify() {
+    public boolean verify() {
         int counter = 0;
         for (int i = 1; i <= 9; i++) {
             for (SudokuField col : elements) {

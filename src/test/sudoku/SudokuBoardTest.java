@@ -44,7 +44,7 @@ class SudokuBoardTest {
         assertNotEquals(0,flaga);
     }
     @Test
-    void fail() {
+    void checkBoardTest() {
         SudokuBoard sud = new SudokuBoard();
         assertEquals(true, sud.fillBoard());
         sud.setValue(0,0,9);
@@ -84,7 +84,8 @@ class SudokuBoardTest {
     void ttest() {
         SudokuBoard sud = new SudokuBoard();
         sud.fillBoard();
-        sud.setValue(1,0,9);
+        sud.setValue(0,8,9);
+        sud.setValue(8,0,5);
         assertEquals(true, sud.fillBoard());
 
     }
@@ -110,4 +111,16 @@ class SudokuBoardTest {
         }
         assertEquals(9,licznik);
     }
+
+    @Test
+    void sudBoxTest() {
+        SudokuBoard sud = new SudokuBoard();
+        sud.fillBoard();
+        sud.setValue(0,0,1);
+        sud.setValue(0,1,1);
+        assertFalse(sud.getBox(0,0).verify());
+    }
+
+
+
 }
