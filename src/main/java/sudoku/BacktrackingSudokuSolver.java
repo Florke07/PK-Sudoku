@@ -13,7 +13,7 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
             return true;
         }
 
-        if (sb.board[currentRowPosition][currentColumnPosition].getFieldValue() != 0) {
+        if (sb.board2.get(currentRowPosition).get(currentColumnPosition).getFieldValue() != 0) {
             if (!(currentRowPosition + 1 == 9)) {
                 return solve(sb, currentRowPosition + 1, currentColumnPosition);
             }
@@ -24,7 +24,7 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
             if (!valid) {
                 continue;
             }
-            sb.board[currentRowPosition][currentColumnPosition].setFieldValue(sb.valuesToInsert.get(i - 1));
+            sb.board2.get(currentRowPosition).get(currentColumnPosition).setFieldValue(sb.valuesToInsert.get(i - 1));
             if (currentRowPosition + 1 == 9) {
                 solved = solve(sb, 0, currentColumnPosition + 1);
             } else {
@@ -33,7 +33,7 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
             if (solved) {
                 return true;
             } else {
-                sb.board[currentRowPosition][currentColumnPosition].setFieldValue(0);
+                sb.board2.get(currentRowPosition).get(currentColumnPosition).setFieldValue(0);
             }
         }
         return false;

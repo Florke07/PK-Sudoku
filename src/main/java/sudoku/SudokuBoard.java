@@ -20,8 +20,14 @@ public class SudokuBoard {
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0}};*/
 
-    public SudokuField[][] board = new SudokuField[9][9];
-
+    //public SudokuField[][] board = new SudokuField[9][9];
+    ArrayList<ArrayList<SudokuField>> board2;
+    public SudokuBoard(){
+        board2 = new ArrayList<>(9);
+        for(int i = 0; i < board2.size(); i++){
+            board2.add(new ArrayList<>(9));
+        }
+    }
     public ArrayList<Integer> valuesToInsert;
     private BacktrackingSudokuSolver BSS = new BacktrackingSudokuSolver();
 
@@ -37,7 +43,8 @@ public class SudokuBoard {
     private void makeBoard() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                board[i][j]= new SudokuField();
+                //board[i][j]= new SudokuField();
+                board2.get(i).add(new SudokuField());
             }
         }
     }
@@ -57,7 +64,7 @@ public class SudokuBoard {
     private void show() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                System.out.print(board[i][j].getFieldValue() + " ");
+                System.out.print(board2.get(i).get(j).getFieldValue() + " ");//board[i][j].getFieldValue() + " ");
             }
             System.out.println();
         }
@@ -66,13 +73,13 @@ public class SudokuBoard {
 
     public boolean isOk(int currentRowPosition, int currentColumnPosition, int valueToCheck) {
         for (int i=0; i < 9; i++) {
-            if (board[currentRowPosition][i].getFieldValue() == valueToCheck) {
+            if (board2.get(currentRowPosition).get(i).getFieldValue()/*board[currentRowPosition][i].getFieldValue()*/ == valueToCheck) {
                 return false;
             }
         }
 
         for (int i=0; i < 9; i++) {
-            if (board[i][currentColumnPosition].getFieldValue() == valueToCheck) {
+            if (board2.get(i).get(currentColumnPosition).getFieldValue() /*board[i][currentColumnPosition].getFieldValue()*/ == valueToCheck) {
                 return false;
             }
         }
@@ -85,7 +92,7 @@ public class SudokuBoard {
 
         for (int x = squareFirstRowNumber; x <= squareEndRowNumber; x++) {
             for (int y = squareFirstColumnNumber; y <= squareEndColumnNumber; y++) {
-                if (board[x][y].getFieldValue() == valueToCheck) {
+                if (board2.get(x).get(y).getFieldValue()/*board[x][y].getFieldValue()*/ == valueToCheck) {
                     return false;
                 }
             }
@@ -95,7 +102,7 @@ public class SudokuBoard {
     }
 
     public int getValue(int x, int y) {
-        return board[x][y].getFieldValue();
+        return board2.get(x).get(y).getFieldValue();//board[x][y].getFieldValue();
     }
 
     public boolean checkBoard() {
@@ -110,7 +117,8 @@ public class SudokuBoard {
     }
 
     public void setValue(int x, int y, int value) {
-        board[x][y].setFieldValue(value);
+        //board[x][y].setFieldValue(value);
+        board2.get(x).get(y).setFieldValue(value);
     }
 
     public SudokuRow getRow(int y) {
@@ -119,7 +127,7 @@ public class SudokuBoard {
         ArrayList<SudokuField> sf = new ArrayList<>();
         int i = var;
             for (int j = 0; j < 9; j++) {
-                sf.add(board[i][j]);
+                sf.add(board2.get(i).get(j)/*board[i][j]*/);
             }
             row.add(sf);
         return row;
@@ -130,7 +138,7 @@ public class SudokuBoard {
         SudokuColumn col = new SudokuColumn();
         ArrayList<SudokuField> sf =new ArrayList<>();
             for (int j = 0; j < 9; j = j + 1) {
-                sf.add(board[j][var]);
+                sf.add(board2.get(j).get(var)/*board[j][var]*/);
             }
         col.add(sf);
         return col;
@@ -147,7 +155,7 @@ public class SudokuBoard {
 
         for (int i = squareFirstRowNumber; i <= squareEndRowNumber; i++) {
             for (int j = squareFirstColumnNumber; j <= squareEndColumnNumber; j++) {
-                sf.add(board[i][j]);
+                sf.add(board2.get(i).get(j)/*board[i][j]*/);
             }
         }
         sb.add(sf);
