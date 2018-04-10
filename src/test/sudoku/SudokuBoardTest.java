@@ -81,22 +81,12 @@ class SudokuBoardTest {
     }
 
     @Test
-    void ttest() {
-        SudokuBoard sud = new SudokuBoard();
-        sud.fillBoard();
-        sud.setValue(0,8,9);
-        sud.setValue(8,0,5);
-        assertEquals(true, sud.fillBoard());
-
-    }
-
-    @Test
     void sudRowTest() {
         SudokuBoard sud  = new SudokuBoard();
         sud.fillBoard();
         int licznik=0;
         for (int i=0;i<9;i++) {
-            if (sud.getRow(2).getIndeksValue(i) == sud.board[2][i].getFieldValue()) licznik++;
+            if (sud.getRow(2).getIndeksValue(i) == sud.board2.get(2).get(i).getFieldValue()) licznik++;
         }
         assertEquals(9,licznik);
     }
@@ -107,7 +97,7 @@ class SudokuBoardTest {
         sud.fillBoard();
         int licznik=0;
         for (int i=0;i<9;i++){
-            if (sud.getColumn(2).getIndeksValue(i) == sud.board[i][2].getFieldValue()) licznik++;
+            if (sud.getColumn(2).getIndeksValue(i) == sud.board2.get(i).get(2).getFieldValue()) licznik++;
         }
         assertEquals(9,licznik);
     }

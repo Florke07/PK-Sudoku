@@ -22,10 +22,10 @@ public class SudokuBoard {
 
     //public SudokuField[][] board = new SudokuField[9][9];
     ArrayList<ArrayList<SudokuField>> board2;
-    public SudokuBoard(){
+    public SudokuBoard() {
         board2 = new ArrayList<>(9);
-        for(int i = 0; i < board2.size(); i++){
-            board2.add(new ArrayList<>(9));
+        for (int i = 0; i < 9; i++) {
+            board2.add(new ArrayList<SudokuField>(9));
         }
     }
     public ArrayList<Integer> valuesToInsert;
@@ -45,6 +45,7 @@ public class SudokuBoard {
             for (int j = 0; j < 9; j++) {
                 //board[i][j]= new SudokuField();
                 board2.get(i).add(new SudokuField());
+
             }
         }
     }
@@ -64,7 +65,7 @@ public class SudokuBoard {
     private void show() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                System.out.print(board2.get(i).get(j).getFieldValue() + " ");//board[i][j].getFieldValue() + " ");
+                System.out.print(board2.get(i).get(j).getFieldValue() + " "); //board[i][j].getFieldValue() + " ");
             }
             System.out.println();
         }
@@ -102,7 +103,7 @@ public class SudokuBoard {
     }
 
     public int getValue(int x, int y) {
-        return board2.get(x).get(y).getFieldValue();//board[x][y].getFieldValue();
+        return board2.get(x).get(y).getFieldValue(); //board[x][y].getFieldValue();
     }
 
     public boolean checkBoard() {
