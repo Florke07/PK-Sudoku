@@ -1,5 +1,7 @@
 package sudokupart;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.util.ArrayList;
 
 public class SudokuElement {
@@ -33,5 +35,10 @@ public class SudokuElement {
 
     public SudokuElement() {
         elements = new ArrayList<>();
+    }
+
+
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }
