@@ -1,7 +1,5 @@
 package sudokupart;
 
-import sudoku.SudokuField;
-
 import java.util.ArrayList;
 
 public class SudokuElement {

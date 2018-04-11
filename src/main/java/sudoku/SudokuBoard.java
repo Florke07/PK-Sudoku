@@ -2,6 +2,7 @@ package sudoku;
 
 import sudokupart.SudokuBox;
 import sudokupart.SudokuColumn;
+import sudokupart.SudokuField;
 import sudokupart.SudokuRow;
 
 import java.util.ArrayList;

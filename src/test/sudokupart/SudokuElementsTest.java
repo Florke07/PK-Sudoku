@@ -1,7 +1,6 @@
 package sudokupart;
 
 import org.junit.jupiter.api.Test;
-import sudoku.SudokuField;
 
 import java.util.ArrayList;
 

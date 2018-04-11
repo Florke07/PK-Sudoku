@@ -1,4 +1,4 @@
-package sudoku;
+package sudokupart;
 
 public class SudokuField {
     private int value;
