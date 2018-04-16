@@ -6,6 +6,9 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
 
+import static org.apache.commons.lang3.builder.ToStringStyle.JSON_STYLE;
+import static org.apache.commons.lang3.builder.ToStringStyle.SIMPLE_STYLE;
+
 public class SudokuElement {
     protected ArrayList<SudokuField> elements;
 
@@ -39,13 +42,13 @@ public class SudokuElement {
         elements = new ArrayList<>();
     }
 
-
+    @Override
     public String toString() {
-        return new ToStringBuilder(this).
+        return new ToStringBuilder(this,SIMPLE_STYLE).
                 append("elements", elements).
                 toString();
     }
-
+    @Override
     public boolean equals(final Object obj) {
         if (obj == null) {
             return false;
@@ -62,6 +65,7 @@ public class SudokuElement {
                 .append(elements, tmp.elements)
                 .isEquals();
     }
+    @Override
     public int hashCode() {
         return new HashCodeBuilder(21, 37).
                 append(elements).

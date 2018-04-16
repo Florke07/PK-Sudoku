@@ -130,7 +130,6 @@ class SudokuElementsTest {
 
         SudokuElement se1 = sb.getColumn(0);
         SudokuElement se2 = sb.getColumn(0);
-
         hs1=se1.hashCode();
         hs2=se2.hashCode();
 
@@ -150,5 +149,17 @@ class SudokuElementsTest {
         hs2=se2.hashCode();
 
         assertNotEquals(hs1,hs2);
+    }
+    @Test
+    void sudokuElementToString() {
+        SudokuBoard sb = new SudokuBoard();
+        sb.fillBoard();
+        for(int i = 0; i < 9;i++){
+            sb.setValue(i,0,i+1);
+        }
+        SudokuElement se1 = sb.getColumn(0);
+        assertEquals("[1, 2, 3, 4, 5, 6, 7, 8, 9]",se1.toString());
+
+
     }
 }
