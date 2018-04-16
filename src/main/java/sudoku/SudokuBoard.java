@@ -17,6 +17,7 @@ public class SudokuBoard {
         }
     }
     public ArrayList<Integer> valuesToInsert;
+
     private BacktrackingSudokuSolver BSS = new BacktrackingSudokuSolver();
 
 
