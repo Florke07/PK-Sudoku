@@ -44,7 +44,7 @@ public class SudokuElement {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,SIMPLE_STYLE).
+        return new ToStringBuilder(this, SIMPLE_STYLE).
                 append("elements", elements).
                 toString();
     }

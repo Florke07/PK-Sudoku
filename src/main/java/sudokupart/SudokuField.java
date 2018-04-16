@@ -25,7 +25,7 @@ public class SudokuField {
     }
     @Override
     public String toString() {
-        return new ToStringBuilder(this,SIMPLE_STYLE).
+        return new ToStringBuilder(this, SIMPLE_STYLE).
                 append("value", value).
                 toString();
     }
