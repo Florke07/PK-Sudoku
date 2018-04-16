@@ -80,26 +80,46 @@ class SudokuElementsTest {
 
     @Test
     void sudokuElementsEquals_NotEqual() {
-        SudokuBoard sb1 = new SudokuBoard();
-        sb1.fillBoard();
-        SudokuBoard sb2 = new SudokuBoard();
-        sb2.fillBoard();
+        SudokuBoard sb = new SudokuBoard();
+        sb.fillBoard();
 
-        SudokuElement sc1 = sb1.getColumn(0);
-        SudokuElement sc2 = sb2.getColumn(0);
+        SudokuElement se1 = sb.getColumn(0);
+        SudokuElement se2 = sb.getColumn(5);
 
-        assertEquals(false, sc1.equals(sc2));
+        assertFalse(se1.equals(se2));
+
+    }
+
+    @Test
+    void sudokuElementsEquals_Null() {
+        SudokuBoard sb = new SudokuBoard();
+        sb.fillBoard();
+
+        SudokuElement se1 = sb.getColumn(0);
+        SudokuElement se2 = null;
+
+        assertFalse(se1.equals(se2));
+
+
+    }
+
+    @Test
+    void sudokuElementsEquals_NotClass() {
+        SudokuBoard sb = new SudokuBoard();
+        sb.fillBoard();
+
+        SudokuElement se1 = sb.getColumn(0);
+
+        assertFalse(se1.equals(sb));
 
     }
     @Test
     void sudokuElementsEquals_Equal() {
         SudokuBoard sb = new SudokuBoard();
         sb.fillBoard();
-        SudokuElement sc = sb.getColumn(0);
+        SudokuElement se = sb.getColumn(0);
 
-        System.out.println(sc.toString());
-
-        assertEquals(true, sc.equals(sc));
+        assertTrue(se.equals(se));
     }
 
     @Test

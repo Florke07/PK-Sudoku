@@ -41,7 +41,7 @@ public class SudokuBoard {
         initValuesToInsert();
         makeBoard();
         if (BSS.solve(this, 0, 0)) {
-            show();
+            //show();
             return true;
         } else {
             System.out.println("Brak rozwiazan");
@@ -49,7 +49,7 @@ public class SudokuBoard {
         }
     }
 
-    private void show() {
+    public void show() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 System.out.print(board2.get(i).get(j).getFieldValue() + " ");

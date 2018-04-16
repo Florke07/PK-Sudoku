@@ -43,16 +43,15 @@ class SudokuBoardTest {
         }
         assertNotEquals(0,flaga);
     }
+
     @Test
-    void checkBoardTest() {
+    void checkBoardTest_False() {
         SudokuBoard sud = new SudokuBoard();
-        assertEquals(true, sud.fillBoard());
+        sud.fillBoard();
         sud.setValue(0,0,9);
         sud.setValue(1,0,9);
         assertEquals(false, sud.checkBoard());
-
     }
-
     @Test
     void checkBroad() {
         int flaga=0;
@@ -111,6 +110,13 @@ class SudokuBoardTest {
         assertFalse(sud.getBox(0,0).verify());
     }
 
+    @Test
+    void sudGetVal() {
+        SudokuBoard sb = new SudokuBoard();
+        sb.fillBoard();
+        sb.setValue(2,8,7);
+        assertEquals(7,sb.getValue(2,8));
+    }
 
 
 }
