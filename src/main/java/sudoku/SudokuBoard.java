@@ -9,24 +9,11 @@ import java.util.ArrayList;
 
 public class SudokuBoard {
 
-    /*
-    public int[][] board = {
-            {0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 5, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 9},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0}};*/
-
-    //public SudokuField[][] board = new SudokuField[9][9];
     ArrayList<ArrayList<SudokuField>> board2;
     public SudokuBoard() {
         board2 = new ArrayList<>(9);
         for (int i = 0; i < 9; i++) {
-            board2.add(new ArrayList<SudokuField>(9));
+            board2.add(new ArrayList<>(9));
         }
     }
     public ArrayList<Integer> valuesToInsert;
@@ -34,7 +21,7 @@ public class SudokuBoard {
 
 
     private void initValuesToInsert() {
-        valuesToInsert = new ArrayList<Integer>();
+        valuesToInsert = new ArrayList<>();
         valuesToInsert.clear();
         for (int i = 1; i <= 9; i++) {
             valuesToInsert.add(i);
@@ -44,9 +31,7 @@ public class SudokuBoard {
     private void makeBoard() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                //board[i][j]= new SudokuField();
                 board2.get(i).add(new SudokuField());
-
             }
         }
     }
@@ -66,7 +51,7 @@ public class SudokuBoard {
     private void show() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                System.out.print(board2.get(i).get(j).getFieldValue() + " "); //board[i][j].getFieldValue() + " ");
+                System.out.print(board2.get(i).get(j).getFieldValue() + " ");
             }
             System.out.println();
         }
@@ -75,13 +60,13 @@ public class SudokuBoard {
 
     public boolean isOk(int currentRowPosition, int currentColumnPosition, int valueToCheck) {
         for (int i=0; i < 9; i++) {
-            if (board2.get(currentRowPosition).get(i).getFieldValue()/*board[currentRowPosition][i].getFieldValue()*/ == valueToCheck) {
+            if (board2.get(currentRowPosition).get(i).getFieldValue() == valueToCheck) {
                 return false;
             }
         }
 
         for (int i=0; i < 9; i++) {
-            if (board2.get(i).get(currentColumnPosition).getFieldValue() /*board[i][currentColumnPosition].getFieldValue()*/ == valueToCheck) {
+            if (board2.get(i).get(currentColumnPosition).getFieldValue() == valueToCheck) {
                 return false;
             }
         }
@@ -94,7 +79,7 @@ public class SudokuBoard {
 
         for (int x = squareFirstRowNumber; x <= squareEndRowNumber; x++) {
             for (int y = squareFirstColumnNumber; y <= squareEndColumnNumber; y++) {
-                if (board2.get(x).get(y).getFieldValue()/*board[x][y].getFieldValue()*/ == valueToCheck) {
+                if (board2.get(x).get(y).getFieldValue() == valueToCheck) {
                     return false;
                 }
             }
@@ -104,7 +89,7 @@ public class SudokuBoard {
     }
 
     public int getValue(int x, int y) {
-        return board2.get(x).get(y).getFieldValue(); //board[x][y].getFieldValue();
+        return board2.get(x).get(y).getFieldValue();
     }
 
     public boolean checkBoard() {
@@ -119,7 +104,6 @@ public class SudokuBoard {
     }
 
     public void setValue(int x, int y, int value) {
-        //board[x][y].setFieldValue(value);
         board2.get(x).get(y).setFieldValue(value);
     }
 
@@ -129,7 +113,7 @@ public class SudokuBoard {
         ArrayList<SudokuField> sf = new ArrayList<>();
         int i = var;
             for (int j = 0; j < 9; j++) {
-                sf.add(board2.get(i).get(j)/*board[i][j]*/);
+                sf.add(board2.get(i).get(j));
             }
             row.add(sf);
         return row;
@@ -140,7 +124,7 @@ public class SudokuBoard {
         SudokuColumn col = new SudokuColumn();
         ArrayList<SudokuField> sf =new ArrayList<>();
             for (int j = 0; j < 9; j = j + 1) {
-                sf.add(board2.get(j).get(var)/*board[j][var]*/);
+                sf.add(board2.get(j).get(var));
             }
         col.add(sf);
         return col;
@@ -157,7 +141,7 @@ public class SudokuBoard {
 
         for (int i = squareFirstRowNumber; i <= squareEndRowNumber; i++) {
             for (int j = squareFirstColumnNumber; j <= squareEndColumnNumber; j++) {
-                sf.add(board2.get(i).get(j)/*board[i][j]*/);
+                sf.add(board2.get(i).get(j));
             }
         }
         sb.add(sf);

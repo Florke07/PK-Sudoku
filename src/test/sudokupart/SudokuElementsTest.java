@@ -1,6 +1,7 @@
 package sudokupart;
 
 import org.junit.jupiter.api.Test;
+import sudoku.SudokuBoard;
 
 import java.util.ArrayList;
 
@@ -75,5 +76,59 @@ class SudokuElementsTest {
         sf.get(3).setFieldValue(3);
         sb.add(sf);
         assertFalse(sb.verify());
+    }
+
+    @Test
+    void sudokuElementsEquals_NotEqual() {
+        SudokuBoard sb1 = new SudokuBoard();
+        sb1.fillBoard();
+        SudokuBoard sb2 = new SudokuBoard();
+        sb2.fillBoard();
+
+        SudokuElement sc1 = sb1.getColumn(0);
+        SudokuElement sc2 = sb2.getColumn(0);
+
+        assertEquals(false, sc1.equals(sc2));
+
+    }
+    @Test
+    void sudokuElementsEquals_Equal() {
+        SudokuBoard sb = new SudokuBoard();
+        sb.fillBoard();
+        SudokuElement sc = sb.getColumn(0);
+
+        System.out.println(sc.toString());
+
+        assertEquals(true, sc.equals(sc));
+    }
+
+    @Test
+    void sudokuElementsHashCode_Equals() {
+        int hs1, hs2;
+        SudokuBoard sb = new SudokuBoard();
+        sb.fillBoard();
+
+        SudokuElement se1 = sb.getColumn(0);
+        SudokuElement se2 = sb.getColumn(0);
+
+        hs1=se1.hashCode();
+        hs2=se2.hashCode();
+
+        assertEquals(hs1,hs2);
+    }
+
+    @Test
+    void sudokuElementsHashCode_NotEquals() {
+        int hs1, hs2;
+        SudokuBoard sb = new SudokuBoard();
+        sb.fillBoard();
+
+        SudokuElement se1 = sb.getColumn(0);
+        SudokuElement se2 = sb.getColumn(5);
+
+        hs1=se1.hashCode();
+        hs2=se2.hashCode();
+
+        assertNotEquals(hs1,hs2);
     }
 }
