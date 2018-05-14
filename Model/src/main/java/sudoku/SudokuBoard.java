@@ -20,6 +20,9 @@ public class SudokuBoard {
 
     private BacktrackingSudokuSolver BSS = new BacktrackingSudokuSolver();
 
+    public SudokuField getField(int x, int y) {
+        return board2.get(y).get(x);
+    }
 
     private void initValuesToInsert() {
         valuesToInsert = new ArrayList<>();
