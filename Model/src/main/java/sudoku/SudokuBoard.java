@@ -5,9 +5,10 @@ import sudokupart.SudokuColumn;
 import sudokupart.SudokuField;
 import sudokupart.SudokuRow;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SudokuBoard {
+public class SudokuBoard implements Serializable, Cloneable {
 
     ArrayList<ArrayList<SudokuField>> board2;
     public SudokuBoard() {

@@ -4,12 +4,13 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.JSON_STYLE;
 import static org.apache.commons.lang3.builder.ToStringStyle.SIMPLE_STYLE;
 
-public class SudokuElement {
+public class SudokuElement implements Serializable, Cloneable {
     protected ArrayList<SudokuField> elements;
 
     public boolean verify() {
