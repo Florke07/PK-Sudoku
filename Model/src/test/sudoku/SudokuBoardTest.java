@@ -1,5 +1,7 @@
 package sudoku;
 
+import levels.Difficulty;
+import levels.FieldsRemover;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;
@@ -118,5 +120,29 @@ class SudokuBoardTest {
         assertEquals(7,sb.getValue(2,8));
     }
 
+    @Test
+    void Test_easy() {
+        SudokuBoard sb = new SudokuBoard();
+        sb.fillBoard();
+        FieldsRemover.removeField(Difficulty.EASY, sb);
 
+        assertFalse(sb.checkBoard());
+    }
+
+    @Test
+    void Test_medium() {
+        SudokuBoard sb = new SudokuBoard();
+        sb.fillBoard();
+        FieldsRemover.removeField(Difficulty.MEDIUM, sb);
+
+        assertFalse(sb.checkBoard());
+    }
+
+    @Test
+    void Test_hard() {
+        SudokuBoard sb = new SudokuBoard();
+        sb.fillBoard();
+        FieldsRemover.removeField(Difficulty.HARD, sb);
+        assertFalse(sb.checkBoard());
+    }
 }
