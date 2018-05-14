@@ -10,14 +10,14 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
         int index;
         SudokuBoard obj = new SudokuBoard();
         obj.makeBoard();
-        try(BufferedReader fileReader = new BufferedReader(new FileReader(filePath))) {
-            for(int i = 0;i < 9;i++) {
+        try (BufferedReader fileReader = new BufferedReader(new FileReader(filePath))) {
+            for (int i = 0; i < 9; i++) {
                 tmp = fileReader.readLine();
                 System.out.println(tmp);
-                for(int j = 1;j <= 9;j++){
+                for (int j = 1; j <= 9; j++) {
                     index = tmp.indexOf(Integer.toString(j));
                     //System.out.println(index);
-                    obj.setValue(i,((index-1)/3),j);
+                    obj.setValue(i, ((index - 1) / 3), j);
                 }
             }
             System.out.println();
@@ -31,9 +31,9 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
     }
 
     @Override
-    public void write(SudokuBoard obj) {
-        try(BufferedWriter fileWriter = new BufferedWriter(new FileWriter(filePath))) {
-            for(int i = 0;i < 9;i++) {
+    public void write(final SudokuBoard obj) {
+        try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(filePath))) {
+            for (int i = 0; i < 9; i++) {
                 fileWriter.write(obj.getRow(i).toString());
                 fileWriter.write("\n");
             }
