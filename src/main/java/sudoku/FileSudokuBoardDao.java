@@ -15,4 +15,8 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard>,AutoCloseable {
     public void close() {
 
     }
+
+    public void finalize() {
+
+    }
 }
