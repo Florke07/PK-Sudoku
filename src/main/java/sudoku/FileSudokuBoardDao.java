@@ -28,4 +28,8 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
     FileSudokuBoardDao(String filePath){
         this.filePath = filePath;
     }
+
+    public void finalize() {
+
+    }
 }
