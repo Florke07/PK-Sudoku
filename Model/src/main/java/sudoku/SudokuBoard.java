@@ -29,7 +29,7 @@ public class SudokuBoard {
         }
     }
 
-    private void makeBoard() {
+    void makeBoard() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 board2.get(i).add(new SudokuField());
