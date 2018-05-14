@@ -152,5 +152,11 @@ public class SudokuBoard implements Serializable, Cloneable {
         sb.add(sf);
         return sb;
     }
+
+    @Override
+    public SudokuBoard clone() throws CloneNotSupportedException {
+        return (SudokuBoard) super.clone();
+    }
+
 }
 

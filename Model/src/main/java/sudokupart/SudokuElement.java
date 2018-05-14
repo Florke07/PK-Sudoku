@@ -72,4 +72,10 @@ public class SudokuElement implements Serializable, Cloneable {
                 append(elements).
                 toHashCode();
     }
+
+    @Override
+    public SudokuElement clone() throws CloneNotSupportedException {
+        return (SudokuElement) super.clone();
+    }
+
 }
