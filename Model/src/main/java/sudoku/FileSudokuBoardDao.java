@@ -43,7 +43,7 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
             e.printStackTrace();
         }
     }
-    FileSudokuBoardDao(String filePath){
+    FileSudokuBoardDao(final String filePath) {
         this.filePath = filePath;
     }
 
