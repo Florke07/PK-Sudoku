@@ -174,6 +174,15 @@ class SudokuElementsTest {
             ex.printStackTrace();
         }
 
-        assertEquals(sf.getFieldValue(),sf2.getFieldValue());
+        SudokuBoard sb2= null;
+        try {
+            sb2 = sb.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        sb.setValue(0,0,0);
+
+        assertNotEquals(sf.getFieldValue(),sf2.getFieldValue());
+        assertNotEquals(sb.getValue(0,0),sb2.getValue(0,0));
     }
 }

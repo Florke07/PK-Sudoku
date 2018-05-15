@@ -17,6 +17,24 @@ public class SudokuBoard implements Serializable, Cloneable {
             board2.add(new ArrayList<>(9));
         }
     }
+
+    public SudokuBoard(ArrayList<ArrayList<SudokuField>> board) {
+        board2 = new ArrayList<>(9);
+        for (int i = 0; i < 9; i++) {
+            board2.add(new ArrayList<>(9));
+        }
+        makeBoard();
+        for (int i=0;i<9;i++) {
+            for (int j=0;j<9;j++){
+                setValue(i, j, board.get(i).get(j).getFieldValue());
+
+            }
+
+        }
+
+    }
+
+
     public ArrayList<Integer> valuesToInsert;
 
     private BacktrackingSudokuSolver BSS = new BacktrackingSudokuSolver();
@@ -155,7 +173,7 @@ public class SudokuBoard implements Serializable, Cloneable {
 
     @Override
     public SudokuBoard clone() throws CloneNotSupportedException {
-        return (SudokuBoard) super.clone();
+        return new SudokuBoard(board2);
     }
 
 }
