@@ -1,6 +1,5 @@
 package sudokupart;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import sudoku.SudokuBoard;
 
@@ -162,47 +161,19 @@ class SudokuElementsTest {
         assertEquals("[1, 2, 3, 4, 5, 6, 7, 8, 9]",se1.toString());
 
     }
+
     @Test
-    void sudokuFieldEquals_NotEquals() {
+    void sudokuElementClone() {
         SudokuBoard sb = new SudokuBoard();
         sb.fillBoard();
-
-        SudokuField sf = sb.getField(0,0);
-        SudokuField sf2 = sb.getField(0,1);
-
-        assertFalse(sf.equals(sf2));
-    }
-
-    @Test
-    void sudokuFieldEquals_Equals() {
-        SudokuBoard board = new SudokuBoard();
-        board.fillBoard();
-
-        SudokuField sf = board.getField(0,0);
-        SudokuField sf2 = board.getField(0,0);
-
-        assertTrue(sf.equals(sf2));
-    }
-
-    @Test
-    void sudokuFieldEquals_Null() {
-        SudokuBoard sb = new SudokuBoard();
-        sb.fillBoard();
-
         SudokuField sf = sb.getField(0,0);
         SudokuField sf2 = null;
+        try {
+            sf2 = sf.clone();
+        } catch (CloneNotSupportedException ex) {
+            ex.printStackTrace();
+        }
 
-        assertFalse(sf.equals(sf2));
-    }
-
-    @Test
-    void sudokuFieldEquals_NotClass() {
-        SudokuBoard sb = new SudokuBoard();
-        sb.fillBoard();
-
-        SudokuField sf = sb.getField(0,0);
-        SudokuColumn sc = sb.getColumn(5);
-
-        assertFalse(sf.equals(sc));
+        assertEquals(sf.getFieldValue(),sf2.getFieldValue());
     }
 }

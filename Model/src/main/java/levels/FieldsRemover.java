@@ -5,7 +5,7 @@ import sudoku.SudokuBoard;
 import java.util.Random;
 
 public class FieldsRemover {
-    public static void removeField(Difficulty dif, SudokuBoard sb) {
+    public static void removeField(final Difficulty dif, final SudokuBoard sb) {
         Random rng = new Random();
 
         switch (dif) {
