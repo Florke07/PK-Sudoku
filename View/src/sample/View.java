@@ -1,22 +1,28 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import levels.Difficulty;
+import levels.FieldsRemover;
+import sudoku.SudokuBoard;
 
-public class View extends Application implements EventHandler<ActionEvent> {
-    Button Izi = new Button("Izi");
+import java.util.ArrayList;
+
+public class View extends Application {
+    Button Izi = new Button("Easy");
     Button Medium = new Button("Medium");
     Button Hard = new Button("Hard");
+    Scene playBord;
+    SudokuBoard sb = new SudokuBoard();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -24,12 +30,7 @@ public class View extends Application implements EventHandler<ActionEvent> {
         int height = 275;
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Hello World");
-
-
-        Izi.setPrefSize(100,20);
-        Izi.setOnAction(this);
-        Medium.setPrefSize(100,20);
-        Hard.setPrefSize(100,20);
+        sb.fillBoard();
 
         BorderPane basic = new BorderPane();
 
@@ -42,21 +43,50 @@ public class View extends Application implements EventHandler<ActionEvent> {
 
         basic.setCenter(layout);
 
-
-
         primaryStage.setScene(new Scene(basic, width, height));
         primaryStage.show();
-    }
 
-    @Override
-    public void handle(ActionEvent event) {
-        if(event.getSource() == Izi){
-            System.out.println("Lamus");
-        }
+        Izi.setPrefSize(100,20);
+        Izi.setOnAction(e -> {
+            FieldsRemover.removeField(Difficulty.EASY, sb);
+            setScene();
+            primaryStage.setScene(playBord);
+        });
+        Medium.setPrefSize(100,20);
+        Medium.setOnAction(e -> {
+            FieldsRemover.removeField(Difficulty.MEDIUM, sb);
+            setScene();
+            primaryStage.setScene(playBord);
+        });
+        Hard.setPrefSize(100,20);
+        Hard.setOnAction(e -> {
+            FieldsRemover.removeField(Difficulty.HARD, sb);
+            setScene();
+            primaryStage.setScene(playBord);
+        });
+
     }
 
     public static void main(String[] args) {
 
         launch(args);
+    }
+
+    private void setScene() {
+        ArrayList<Label> fields = new ArrayList<>();
+        GridPane gameLayout = new GridPane();
+        gameLayout.setGridLinesVisible(false);
+        gameLayout.setPadding(new Insets(5,5,5,5));
+        gameLayout.setHgap(20);
+        gameLayout.setVgap(20);
+        int k = 0;
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                fields.add(new Label(String.valueOf(sb.getValue(i, j))));
+                gameLayout.add(fields.get(k), j, i);
+                k++;
+            }
+        }
+        playBord = new Scene(gameLayout, 400, 400);
     }
 }
