@@ -7,9 +7,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import levels.Difficulty;
 import levels.FieldsRemover;
@@ -73,16 +75,18 @@ public class View extends Application {
     }
 
     private void setScene() {
-        ArrayList<Label> fields = new ArrayList<>();
+        ArrayList<TextField> fields = new ArrayList<>();
         GridPane gameLayout = new GridPane();
         gameLayout.setGridLinesVisible(false);
         gameLayout.setPadding(new Insets(5,5,5,5));
         gameLayout.setHgap(20);
         gameLayout.setVgap(20);
+        gameLayout.addRow(12);
+        gameLayout.addColumn(12);
         int k = 0;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                fields.add(new Label(String.valueOf(sb.getValue(i, j))));
+                fields.add(new TextField(String.valueOf(sb.getValue(i, j))));
                 gameLayout.add(fields.get(k), j, i);
                 k++;
             }
