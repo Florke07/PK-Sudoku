@@ -18,14 +18,14 @@ public class SudokuBoard implements Serializable, Cloneable {
         }
     }
 
-    public SudokuBoard(ArrayList<ArrayList<SudokuField>> board) {
+    public SudokuBoard(final ArrayList<ArrayList<SudokuField>> board) {
         board2 = new ArrayList<>(9);
         for (int i = 0; i < 9; i++) {
             board2.add(new ArrayList<>(9));
         }
         makeBoard();
-        for (int i=0;i<9;i++) {
-            for (int j=0;j<9;j++){
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
                 setValue(i, j, board.get(i).get(j).getFieldValue());
 
             }

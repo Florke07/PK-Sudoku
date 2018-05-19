@@ -185,4 +185,17 @@ class SudokuElementsTest {
         assertNotEquals(sf.getFieldValue(),sf2.getFieldValue());
         assertNotEquals(sb.getValue(0,0),sb2.getValue(0,0));
     }
+
+    @Test
+    void elementClone() {
+        SudokuElement sf = new SudokuElement();
+        SudokuElement sf2 = new SudokuElement();
+        try {
+            sf2 = sf.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+
+        assertNotEquals(sf,sf2);
+    }
 }
