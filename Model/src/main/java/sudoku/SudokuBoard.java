@@ -11,6 +11,9 @@ import java.util.ArrayList;
 public class SudokuBoard implements Serializable, Cloneable {
 
     ArrayList<ArrayList<SudokuField>> board2;
+    transient private BacktrackingSudokuSolver BSS = new BacktrackingSudokuSolver();
+    transient public ArrayList<Integer> valuesToInsert;
+
     public SudokuBoard() {
         board2 = new ArrayList<>(9);
         for (int i = 0; i < 9; i++) {
@@ -34,10 +37,6 @@ public class SudokuBoard implements Serializable, Cloneable {
 
     }
 
-
-    public ArrayList<Integer> valuesToInsert;
-
-    private BacktrackingSudokuSolver BSS = new BacktrackingSudokuSolver();
 
     public SudokuField getField(int x, int y) {
         return board2.get(y).get(x);

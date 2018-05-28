@@ -1,5 +1,6 @@
 package sudoku;
 
+import java.io.Serializable;
 import java.util.Collections;
 
 public class BacktrackingSudokuSolver implements SudokuSolver {

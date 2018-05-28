@@ -28,7 +28,7 @@ public class View extends Application {
     Scene playBord;
     SudokuBoard sb = new SudokuBoard();
     SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
-    Dao dao = factory.getFileDao("view.txt");
+    Dao dao = factory.getFileDao("view.ser");
     Button save = new Button("Save");
     Button load = new Button("Load");
     Button check = new Button("Check");
