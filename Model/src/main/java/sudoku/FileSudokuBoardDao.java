@@ -7,7 +7,7 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
 
     @Override
     public SudokuBoard read() {
-        String tmp;
+        /*String tmp;
         int index;
         SudokuBoard obj = new SudokuBoard();
         obj.makeBoard();
@@ -20,15 +20,31 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
                 }
             }
             System.out.println();
-             return obj;
+            return obj;
         } catch (IOException e) {
             e.printStackTrace();
+        }*/
+        SudokuBoard obj;
+        try {
+            FileInputStream fileIn = new FileInputStream(filePath);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            obj = (SudokuBoard) in.readObject();
+            in.close();
+            fileIn.close();
+            return obj;
+        } catch (IOException i) {
+            i.printStackTrace();
+            return null;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Employee class not found");
+            c.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     @Override
     public void write(final SudokuBoard obj) {
+        /*
         try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(filePath))) {
             for (int i = 0; i < 9; i++) {
                 fileWriter.write(obj.getRow(i).toString());
@@ -36,8 +52,19 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }*/
+        try {
+            FileOutputStream fileOut = new FileOutputStream(filePath);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(obj);
+            out.close();
+            fileOut.close();
+            System.out.printf("Serialized data is saved in " + filePath);
+        } catch (IOException i) {
+            i.printStackTrace();
         }
     }
+
     FileSudokuBoardDao(final String filePath) {
         this.filePath = filePath;
     }

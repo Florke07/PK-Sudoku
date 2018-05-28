@@ -10,9 +10,11 @@ import static org.apache.commons.lang3.builder.ToStringStyle.SIMPLE_STYLE;
 
 public class SudokuField implements Comparable, Serializable, Cloneable {
     private int value;
+    private boolean modifiable;
 
     public SudokuField() {
         value=0;
+        modifiable = false;
     }
 
     public  SudokuField(int value) {
@@ -21,6 +23,12 @@ public class SudokuField implements Comparable, Serializable, Cloneable {
 
     public  int getFieldValue() {
         return value;
+    }
+
+    public void setModifiable(boolean bool){modifiable=bool;}
+
+    public boolean isModifiable() {
+        return modifiable;
     }
 
     public void setFieldValue(int valueToSet) {
