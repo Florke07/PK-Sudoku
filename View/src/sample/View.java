@@ -6,16 +6,15 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import levels.Difficulty;
 import levels.FieldsRemover;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sudoku.Dao;
 import sudoku.SudokuBoard;
 import sudoku.SudokuBoardDaoFactory;
@@ -34,13 +33,14 @@ public class View extends Application {
     Button load = new Button("Load");
     Button check = new Button("Check");
     ArrayList<TextField> fields = new ArrayList<>();
+    final Logger logger = LoggerFactory.getLogger(View.class);
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         int width = 300;
         int height = 275;
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Sudoku, WM, MS");
         sb.fillBoard();
 
         BorderPane basic = new BorderPane();
@@ -60,40 +60,43 @@ public class View extends Application {
         Izi.setPrefSize(100,20);
         Izi.setOnAction(e -> {
             FieldsRemover.removeField(Difficulty.EASY, sb);
+            logger.info("Easy");
             setScene();
             primaryStage.setScene(playBord);
         });
         Medium.setPrefSize(100,20);
         Medium.setOnAction(e -> {
             FieldsRemover.removeField(Difficulty.MEDIUM, sb);
+            logger.info("Medium");
             setScene();
             primaryStage.setScene(playBord);
         });
         Hard.setPrefSize(100,20);
         Hard.setOnAction(e -> {
             FieldsRemover.removeField(Difficulty.HARD, sb);
+            logger.info("Hard");
             setScene();
             primaryStage.setScene(playBord);
         });
         save.setOnAction(e -> {
-            System.out.println("save");
+            logger.info("save");
             getFields();
             dao.write(sb);
         });
         load.setOnAction(e -> {
-            System.out.println("load");
+            logger.info("load");
             sb = (SudokuBoard) dao.read();
             setScene();
             primaryStage.setScene(playBord);
         });
         check.setOnAction(e -> {
-            System.out.println("Sprawdzam");
+            logger.info("Check");
             getFields();
             if (sb.checkBoard()) {
-                System.out.println("Dobrze");
+                logger.info("Good");
             }
             else {
-                System.out.println("Zle");
+                logger.info("Bad");
             }
         });
     }

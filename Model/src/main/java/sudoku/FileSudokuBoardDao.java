@@ -1,12 +1,17 @@
 package sudoku;
 
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
+import org.slf4j.*;
 
 public class FileSudokuBoardDao implements Dao<SudokuBoard> {
     private String filePath;
+    final Logger logger = LoggerFactory.getLogger(FileSudokuBoardDao.class);
 
     @Override
     public SudokuBoard read() {
+
         /*String tmp;
         int index;
         SudokuBoard obj = new SudokuBoard();
@@ -31,13 +36,14 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
             obj = (SudokuBoard) in.readObject();
             in.close();
             fileIn.close();
-            System.out.println("Wczyt zakonczony");
+            logger.info("Read successfully");
             return obj;
         } catch (IOException i) {
+            logger.info("IOException!");
             i.printStackTrace();
             return null;
         } catch (ClassNotFoundException c) {
-            System.out.println("Employee class not found");
+            logger.info("Class not found!");
             c.printStackTrace();
             return null;
         }
@@ -60,7 +66,7 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
             out.writeObject(obj);
             out.close();
             fileOut.close();
-            System.out.printf("Serialized data is saved in " + filePath);
+            logger.info("Serialized data is saved in " + filePath);
         } catch (IOException i) {
             i.printStackTrace();
         }

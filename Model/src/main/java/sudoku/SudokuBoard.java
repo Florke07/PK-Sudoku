@@ -1,5 +1,7 @@
 package sudoku;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sudokupart.SudokuBox;
 import sudokupart.SudokuColumn;
 import sudokupart.SudokuField;
@@ -13,6 +15,7 @@ public class SudokuBoard implements Serializable, Cloneable {
     ArrayList<ArrayList<SudokuField>> board2;
     transient BacktrackingSudokuSolver BSS = new BacktrackingSudokuSolver();
     transient ArrayList<Integer> valuesToInsert;
+    final Logger logger = LoggerFactory.getLogger(SudokuBoard.class);
 
     public SudokuBoard() {
         board2 = new ArrayList<>(9);
@@ -30,11 +33,8 @@ public class SudokuBoard implements Serializable, Cloneable {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 setValue(i, j, board.get(i).get(j).getFieldValue());
-
             }
-
         }
-
     }
 
 
@@ -62,23 +62,13 @@ public class SudokuBoard implements Serializable, Cloneable {
         initValuesToInsert();
         makeBoard();
         if (BSS.solve(this, 0, 0)) {
-            //show();
             return true;
         } else {
-            System.out.println("Brak rozwiazan");
+            logger.info("Brak rozwiazan");
             return false;
         }
     }
 
-    public void show() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                System.out.print(board2.get(i).get(j).getFieldValue() + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
 
     public boolean isOk(int currentRowPosition, int currentColumnPosition, int valueToCheck) {
         for (int i=0; i < 9; i++) {
@@ -115,14 +105,6 @@ public class SudokuBoard implements Serializable, Cloneable {
     }
 
     public boolean checkBoard() {
-        /*for (int i=0; i < 9; i++) {
-            for (int j=0; j < 9; j++) {
-                if (!isOk(i, j, getValue(i, j))) {
-                    return false;
-                }
-            }
-        }
-        return true;*/
         ArrayList<SudokuColumn> sc = new ArrayList<>();
         int licznik=0;
         for (int i = 0; i < 9; i++) {
