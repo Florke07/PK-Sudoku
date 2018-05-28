@@ -107,7 +107,9 @@ public class View extends Application {
         int k = 0;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                fields.add(new TextField(String.valueOf(sb.getValue(i, j))));
+                TextField tx = new TextField(String.valueOf(sb.getValue(i, j)));
+                if (!tx.getText().equals("0")) tx.setDisable(true);
+                fields.add(tx);
                 gameLayout.add(fields.get(k), j, i);
                 k++;
             }
