@@ -78,7 +78,7 @@ class SudokuBoardTest {
         }
         isChechOK=sud.checkBoard();
         assertNotEquals(0,flaga);
-        assertEquals(isFlagaTrue,isChechOK);
+        assertNotEquals(isFlagaTrue,isChechOK);
     }
 
     @Test

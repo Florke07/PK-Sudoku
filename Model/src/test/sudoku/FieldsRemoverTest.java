@@ -13,7 +13,7 @@ public class FieldsRemoverTest {
         SudokuBoard sb = new SudokuBoard();
         sb.fillBoard();
 
-        FieldsRemover.removeField(Difficulty.EASY, sb);
+        FieldsRemover.removeField(Difficulty.MEDIUM, sb);
         boolean getIt = false;
         for (int i = 0;i < 9; i++) {
             for (int j = 0; j < 9; j++) {

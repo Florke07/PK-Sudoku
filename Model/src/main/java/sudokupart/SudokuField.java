@@ -25,7 +25,9 @@ public class SudokuField implements Comparable, Serializable, Cloneable {
         return value;
     }
 
-    public void setModifiable(boolean bool){modifiable=bool;}
+    public void setModifiable(boolean bool) {
+        modifiable=bool;
+    }
 
     public boolean isModifiable() {
         return modifiable;

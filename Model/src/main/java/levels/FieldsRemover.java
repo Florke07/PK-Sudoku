@@ -13,11 +13,11 @@ public class FieldsRemover {
         int tmpY;
         switch (dif) {
             case EASY:
-                for (int i = 0; i < 1; i++) {
+                for (int i = 0; i < 15; i++) {
                     tmpX = rng.nextInt(8);
                     tmpY = rng.nextInt(8);
                     sb.setValue(tmpX, tmpY, 0);
-                    sb.getField(tmpX,tmpY).setModifiable(true);
+                    sb.getField(tmpX, tmpY).setModifiable(true);
                 }
                 break;
             case MEDIUM:
@@ -25,7 +25,7 @@ public class FieldsRemover {
                     tmpX = rng.nextInt(8);
                     tmpY = rng.nextInt(8);
                     sb.setValue(tmpX, tmpY, 0);
-                    sb.getField(tmpX,tmpY).setModifiable(true);
+                    sb.getField(tmpX, tmpY).setModifiable(true);
                 }
                 break;
             case HARD:
@@ -33,7 +33,7 @@ public class FieldsRemover {
                     tmpX = rng.nextInt(8);
                     tmpY = rng.nextInt(8);
                     sb.setValue(tmpX, tmpY, 0);
-                    sb.getField(tmpX,tmpY).setModifiable(true);
+                    sb.getField(tmpX, tmpY).setModifiable(true);
                 }
                 break;
         }

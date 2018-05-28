@@ -14,18 +14,14 @@ public class SudokuElement implements Serializable, Cloneable {
 
     public boolean verify() {
         int counter = 0;
-        for (int i = 1; i <= 9; i++) {
             for (SudokuField col : elements) {
-                if (col.getFieldValue() == i) {
-                    counter++;
-                }
+                counter += col.getFieldValue();
             }
-            if (counter > 1) {
+            if (counter == 45) {
+                return true;
+            } else {
                 return false;
             }
-            counter = 0;
-        }
-        return true;
     }
 
     public void add(final ArrayList<SudokuField> elemnt) {

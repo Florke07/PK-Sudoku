@@ -11,8 +11,8 @@ import java.util.ArrayList;
 public class SudokuBoard implements Serializable, Cloneable {
 
     ArrayList<ArrayList<SudokuField>> board2;
-    transient private BacktrackingSudokuSolver BSS = new BacktrackingSudokuSolver();
-    transient public ArrayList<Integer> valuesToInsert;
+    transient BacktrackingSudokuSolver BSS = new BacktrackingSudokuSolver();
+    transient ArrayList<Integer> valuesToInsert;
 
     public SudokuBoard() {
         board2 = new ArrayList<>(9);
@@ -115,14 +115,30 @@ public class SudokuBoard implements Serializable, Cloneable {
     }
 
     public boolean checkBoard() {
-        for (int i=0; i < 9; i++) {
+        /*for (int i=0; i < 9; i++) {
             for (int j=0; j < 9; j++) {
                 if (!isOk(i, j, getValue(i, j))) {
                     return false;
                 }
             }
         }
-        return true;
+        return true;*/
+        ArrayList<SudokuColumn> sc = new ArrayList<>();
+        int licznik=0;
+        for (int i = 0; i < 9; i++) {
+            sc.add(getColumn(i));
+        }
+        for (SudokuColumn c: sc) {
+            if (c.verify()) {
+                licznik++;
+            }
+
+        }
+        if (licznik == 9) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void setValue(int x, int y, int value) {
