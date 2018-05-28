@@ -15,7 +15,9 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import levels.Difficulty;
 import levels.FieldsRemover;
+import sudoku.Dao;
 import sudoku.SudokuBoard;
+import sudoku.SudokuBoardDaoFactory;
 
 import java.util.ArrayList;
 
@@ -25,6 +27,8 @@ public class View extends Application {
     Button Hard = new Button("Hard");
     Scene playBord;
     SudokuBoard sb = new SudokuBoard();
+    SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
+    Dao dao = factory.getFileDao("view.txt");
     Button save = new Button("Save");
     Button load = new Button("Load");
     Button check = new Button("Check");
@@ -69,7 +73,21 @@ public class View extends Application {
             setScene();
             primaryStage.setScene(playBord);
         });
-
+        save.setOnAction(e -> {
+            System.out.println("save");
+            dao.write(sb);
+        });
+        load.setOnAction(e -> {
+            System.out.println("load");
+            sb = (SudokuBoard) dao.read();
+            setScene();
+            primaryStage.setScene(playBord);
+        });
+        check.setOnAction(e -> {
+            System.out.println("Sprawdzam");
+            if (sb.checkBoard()) System.out.println("Dobrze");
+            else System.out.println("Zle");
+        });
     }
 
     public static void main(String[] args) {
@@ -97,15 +115,7 @@ public class View extends Application {
         gameLayout.add(save, 0, 9, 3,1);
         gameLayout.add(load,3,9,3,1);
         gameLayout.add(check, 6,9,3,1);
-        save.setOnAction(e -> {
-            System.out.println("save");
-        });
-        load.setOnAction(e -> {
-            System.out.println("load");
-        });
-        check.setOnAction(e -> {
-            System.out.println("Sprawdzam");
-        });
+
         playBord = new Scene(gameLayout, 400, 450);
     }
 }
