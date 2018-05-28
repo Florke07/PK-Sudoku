@@ -15,7 +15,9 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import levels.Difficulty;
 import levels.FieldsRemover;
+import sudoku.Dao;
 import sudoku.SudokuBoard;
+import sudoku.SudokuBoardDaoFactory;
 
 import java.util.ArrayList;
 
@@ -25,6 +27,11 @@ public class View extends Application {
     Button Hard = new Button("Hard");
     Scene playBord;
     SudokuBoard sb = new SudokuBoard();
+    SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
+    Dao dao = factory.getFileDao("view.txt");
+    Button save = new Button("Save");
+    Button load = new Button("Load");
+    Button check = new Button("Check");
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -66,7 +73,21 @@ public class View extends Application {
             setScene();
             primaryStage.setScene(playBord);
         });
-
+        save.setOnAction(e -> {
+            System.out.println("save");
+            dao.write(sb);
+        });
+        load.setOnAction(e -> {
+            System.out.println("load");
+            sb = (SudokuBoard) dao.read();
+            setScene();
+            primaryStage.setScene(playBord);
+        });
+        check.setOnAction(e -> {
+            System.out.println("Sprawdzam");
+            if (sb.checkBoard()) System.out.println("Dobrze");
+            else System.out.println("Zle");
+        });
     }
 
     public static void main(String[] args) {
@@ -81,8 +102,8 @@ public class View extends Application {
         gameLayout.setPadding(new Insets(5,5,5,5));
         gameLayout.setHgap(20);
         gameLayout.setVgap(20);
-        gameLayout.addRow(12);
-        gameLayout.addColumn(12);
+        gameLayout.addRow(10);
+        gameLayout.addColumn(9);
         int k = 0;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -91,6 +112,10 @@ public class View extends Application {
                 k++;
             }
         }
-        playBord = new Scene(gameLayout, 400, 400);
+        gameLayout.add(save, 0, 9, 3,1);
+        gameLayout.add(load,3,9,3,1);
+        gameLayout.add(check, 6,9,3,1);
+
+        playBord = new Scene(gameLayout, 400, 450);
     }
 }
