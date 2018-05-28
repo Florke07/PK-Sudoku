@@ -13,7 +13,7 @@ public class FieldsRemover {
         int tmpY;
         switch (dif) {
             case EASY:
-                for (int i = 0; i < 15; i++) {
+                for (int i = 0; i < 1; i++) {
                     tmpX = rng.nextInt(8);
                     tmpY = rng.nextInt(8);
                     sb.setValue(tmpX, tmpY, 0);

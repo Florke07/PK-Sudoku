@@ -32,6 +32,7 @@ public class View extends Application {
     Button save = new Button("Save");
     Button load = new Button("Load");
     Button check = new Button("Check");
+    ArrayList<TextField> fields = new ArrayList<>();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -75,6 +76,7 @@ public class View extends Application {
         });
         save.setOnAction(e -> {
             System.out.println("save");
+            getFields();
             dao.write(sb);
         });
         load.setOnAction(e -> {
@@ -85,8 +87,13 @@ public class View extends Application {
         });
         check.setOnAction(e -> {
             System.out.println("Sprawdzam");
-            if (sb.checkBoard()) System.out.println("Dobrze");
-            else System.out.println("Zle");
+            getFields();
+            if (sb.checkBoard()) {
+                System.out.println("Dobrze");
+            }
+            else {
+                System.out.println("Zle");
+            }
         });
     }
 
@@ -96,7 +103,7 @@ public class View extends Application {
     }
 
     private void setScene() {
-        ArrayList<TextField> fields = new ArrayList<>();
+        fields.clear();
         GridPane gameLayout = new GridPane();
         gameLayout.setGridLinesVisible(false);
         gameLayout.setPadding(new Insets(5,5,5,5));
@@ -108,7 +115,7 @@ public class View extends Application {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 TextField tx = new TextField(String.valueOf(sb.getValue(i, j)));
-                if (!tx.getText().equals("0")) tx.setDisable(true);
+                if (!sb.getField(i,j).isModifiable()) tx.setDisable(true);
                 fields.add(tx);
                 gameLayout.add(fields.get(k), j, i);
                 k++;
@@ -119,5 +126,15 @@ public class View extends Application {
         gameLayout.add(check, 6,9,3,1);
 
         playBord = new Scene(gameLayout, 400, 450);
+    }
+
+    private void getFields() {
+        int k=0;
+        for (int i=0;i<9;i++) {
+            for (int j=0;j<9;j++) {
+                sb.setValue(i,j,Integer.parseInt(fields.get(k).getText()));
+                k++;
+            }
+        }
     }
 }

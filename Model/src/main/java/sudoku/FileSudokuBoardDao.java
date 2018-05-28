@@ -31,6 +31,7 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
             obj = (SudokuBoard) in.readObject();
             in.close();
             fileIn.close();
+            System.out.println("Wczyt zakonczony");
             return obj;
         } catch (IOException i) {
             i.printStackTrace();
