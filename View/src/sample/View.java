@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import levels.Difficulty;
@@ -104,28 +105,49 @@ public class View extends Application {
 
     private void setScene() {
         fields.clear();
+        BorderPane trueGameLayout = new BorderPane();
         GridPane gameLayout = new GridPane();
-        gameLayout.setGridLinesVisible(false);
+        gameLayout.setGridLinesVisible(true);
         gameLayout.setPadding(new Insets(5,5,5,5));
-        gameLayout.setHgap(20);
-        gameLayout.setVgap(20);
-        gameLayout.addRow(10);
-        gameLayout.addColumn(9);
+        gameLayout.setHgap(8);
+        gameLayout.setVgap(8);
+        gameLayout.addRow(4);
+        gameLayout.addColumn(3);
         int k = 0;
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                TextField tx = new TextField(String.valueOf(sb.getValue(i, j)));
-                if (!sb.getField(i,j).isModifiable()) tx.setDisable(true);
-                fields.add(tx);
-                gameLayout.add(fields.get(k), j, i);
-                k++;
+        for (int i = 1; i <= 3; i++) {
+            for (int j = 1; j <= 3; j++) {
+                GridPane innergrid = new GridPane();
+                innergrid.setGridLinesVisible(false);
+                innergrid.setPadding(new Insets(8,8,8,8));
+                innergrid.setHgap(8);
+                innergrid.setVgap(8);
+                innergrid.addRow(3);
+                innergrid.addColumn(3);
+                for(int x = 1;x <= 3; x++){
+                    for(int y = 1;y <= 3;y++){
+                        TextField tx = new TextField(String.valueOf(sb.getValue((i*x)-1, (j*y)-1)));
+                        tx.setPrefWidth(35);
+                        tx.setPrefHeight(35);
+                        if (!sb.getField((i*x)-1,(j*y)-1).isModifiable()) tx.setDisable(true);
+                        fields.add(tx);
+                        innergrid.add(fields.get(k),x-1,y-1);
+                        k++;
+                    }
+                }
+                gameLayout.add(innergrid, j-1, i-1);
+
             }
         }
-        gameLayout.add(save, 0, 9, 3,1);
-        gameLayout.add(load,3,9,3,1);
-        gameLayout.add(check, 6,9,3,1);
+        trueGameLayout.setCenter(gameLayout);
+        HBox options = new HBox();
+        options.setSpacing(50);
+        options.setPadding(new Insets(5,5,5,75));
+        options.getChildren().add(save);
+        options.getChildren().add(load);
+        options.getChildren().add(check);
+        trueGameLayout.setBottom(options);
 
-        playBord = new Scene(gameLayout, 400, 450);
+        playBord = new Scene(trueGameLayout, 400, 400);
     }
 
     private void getFields() {
