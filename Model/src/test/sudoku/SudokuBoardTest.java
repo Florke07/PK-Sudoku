@@ -1,5 +1,6 @@
 package sudoku;
 
+import exceptions.WrongValueException;
 import levels.Difficulty;
 import levels.FieldsRemover;
 import org.junit.jupiter.api.Test;
@@ -50,8 +51,13 @@ class SudokuBoardTest {
     void checkBoardTest_False() {
         SudokuBoard sud = new SudokuBoard();
         sud.fillBoard();
-        sud.setValue(0,0,9);
-        sud.setValue(1,0,9);
+        try {
+            sud.setValue(0,0,9);
+            sud.setValue(1,0,9);
+        } catch (WrongValueException ex) {
+            ex.printStackTrace();
+        }
+
         assertEquals(false, sud.checkBoard());
     }
     @Test
@@ -107,8 +113,13 @@ class SudokuBoardTest {
     void sudBoxTest() {
         SudokuBoard sud = new SudokuBoard();
         sud.fillBoard();
-        sud.setValue(0,0,1);
-        sud.setValue(0,1,1);
+        try {
+            sud.setValue(0,0,1);
+            sud.setValue(0,1,1);
+        } catch (WrongValueException ex) {
+            ex.printStackTrace();
+        }
+
         assertFalse(sud.getBox(0,0).verify());
     }
 
@@ -116,7 +127,12 @@ class SudokuBoardTest {
     void sudGetVal() {
         SudokuBoard sb = new SudokuBoard();
         sb.fillBoard();
-        sb.setValue(2,8,7);
+        try {
+            sb.setValue(2,8,7);
+        } catch (WrongValueException ex) {
+            ex.printStackTrace();
+        }
+
         assertEquals(7,sb.getValue(2,8));
     }
 

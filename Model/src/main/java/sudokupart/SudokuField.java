@@ -1,5 +1,6 @@
 package sudokupart;
 
+import exceptions.WrongValueException;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -33,7 +34,10 @@ public class SudokuField implements Comparable, Serializable, Cloneable {
         return modifiable;
     }
 
-    public void setFieldValue(int valueToSet) {
+    public void setFieldValue(int valueToSet) throws WrongValueException {
+        if (value < 0 || value > 9) {
+            throw new WrongValueException("Value must be between 0 nad 9");
+        }
         value=valueToSet;
     }
     @Override

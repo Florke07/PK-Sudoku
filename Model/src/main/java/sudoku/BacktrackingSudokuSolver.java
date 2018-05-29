@@ -1,11 +1,13 @@
 package sudoku;
 
-import java.io.Serializable;
+import exceptions.BacktrackingException;
+import exceptions.WrongValueException;
+
 import java.util.Collections;
 
 public class BacktrackingSudokuSolver implements SudokuSolver {
 
-    public boolean solve(final SudokuBoard sb, int currentRowPosition, int currentColumnPosition) {
+    public boolean solve(final SudokuBoard sb, int currentRowPosition, int currentColumnPosition) throws BacktrackingException {
         boolean solved;
 
         Collections.shuffle(sb.valuesToInsert);
@@ -25,7 +27,12 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
             if (!valid) {
                 continue;
             }
-            sb.board2.get(currentRowPosition).get(currentColumnPosition).setFieldValue(sb.valuesToInsert.get(i - 1));
+            try {
+                sb.board2.get(currentRowPosition).get(currentColumnPosition).setFieldValue(sb.valuesToInsert.get(i - 1));
+            } catch (WrongValueException ex) {
+
+            }
+
             if (currentRowPosition + 1 == 9) {
                 solved = solve(sb, 0, currentColumnPosition + 1);
             } else {
@@ -34,7 +41,12 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
             if (solved) {
                 return true;
             } else {
-                sb.board2.get(currentRowPosition).get(currentColumnPosition).setFieldValue(0);
+                try {
+                    sb.board2.get(currentRowPosition).get(currentColumnPosition).setFieldValue(0);
+                } catch (WrongValueException ex) {
+                    throw new BacktrackingException("Backtracking Exception!");
+                }
+
             }
         }
         return false;

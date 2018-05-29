@@ -1,5 +1,7 @@
 package sample;
 
+import exceptions.EmptyFileNameException;
+import exceptions.WrongValueException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -28,7 +30,7 @@ public class View extends Application {
     Scene playBord;
     SudokuBoard sb = new SudokuBoard();
     SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
-    Dao dao = factory.getFileDao("view.ser");
+    Dao dao;
     Button save = new Button("Save");
     Button load = new Button("Load");
     Button check = new Button("Check");
@@ -37,6 +39,7 @@ public class View extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        makeDao();
         int width = 300;
         int height = 275;
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
@@ -157,9 +160,23 @@ public class View extends Application {
         int k=0;
         for (int i=0;i<9;i++) {
             for (int j=0;j<9;j++) {
-                sb.setValue(i,j,Integer.parseInt(fields.get(k).getText()));
-                k++;
+                try {
+                    sb.setValue(i,j,Integer.parseInt(fields.get(k).getText()));
+                    k++;
+                } catch (WrongValueException ex) {
+                    ex.printStackTrace();
+                }
+
             }
         }
+    }
+
+    private void makeDao() {
+        try {
+            dao = factory.getFileDao("view.ser");
+        } catch (EmptyFileNameException ex) {
+            ex.printStackTrace();
+        }
+
     }
 }

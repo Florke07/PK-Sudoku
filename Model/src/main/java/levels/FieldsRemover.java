@@ -1,5 +1,6 @@
 package levels;
 
+import exceptions.WrongValueException;
 import sudoku.SudokuBoard;
 
 import java.util.Random;
@@ -16,7 +17,12 @@ public class FieldsRemover {
                 for (int i = 0; i < 15; i++) {
                     tmpX = rng.nextInt(8);
                     tmpY = rng.nextInt(8);
-                    sb.setValue(tmpX, tmpY, 0);
+                    try {
+                        sb.setValue(tmpX, tmpY, 0);
+                    } catch (WrongValueException ex) {
+                        ex.printStackTrace();
+                    }
+
                     sb.getField(tmpX, tmpY).setModifiable(true);
                 }
                 break;
@@ -24,7 +30,11 @@ public class FieldsRemover {
                 for (int i = 0; i < 35; i++) {
                     tmpX = rng.nextInt(8);
                     tmpY = rng.nextInt(8);
-                    sb.setValue(tmpX, tmpY, 0);
+                    try {
+                        sb.setValue(tmpX, tmpY, 0);
+                    } catch (WrongValueException ex) {
+                        ex.printStackTrace();
+                    }
                     sb.getField(tmpX, tmpY).setModifiable(true);
                 }
                 break;
@@ -32,7 +42,11 @@ public class FieldsRemover {
                 for (int i = 0; i < 50; i++) {
                     tmpX = rng.nextInt(8);
                     tmpY = rng.nextInt(8);
-                    sb.setValue(tmpX, tmpY, 0);
+                    try {
+                        sb.setValue(tmpX, tmpY, 0);
+                    } catch (WrongValueException ex) {
+                        ex.printStackTrace();
+                    }
                     sb.getField(tmpX, tmpY).setModifiable(true);
                 }
                 break;

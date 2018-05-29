@@ -1,8 +1,11 @@
 package sudoku;
 
+import exceptions.EmptyFileNameException;
 import org.junit.jupiter.api.Test;
+
 import java.io.File;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DaoTest {
     @Test
@@ -10,7 +13,13 @@ public class DaoTest {
         SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
         SudokuBoard sb = new SudokuBoard();
         sb.fillBoard();
-        Dao d = factory.getFileDao("test.txt");
+        Dao d=null;
+        try {
+            d = factory.getFileDao("test.txt");
+        } catch (EmptyFileNameException ex) {
+            ex.printStackTrace();
+        }
+
         d.write(sb);
 
         File f = new File("test.txt");
@@ -21,7 +30,12 @@ public class DaoTest {
     @Test
     void FileSudokuBoardTest_Read() {
         SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
-        Dao d = factory.getFileDao("test.txt");
+        Dao d = null;
+        try {
+            d = factory.getFileDao("test.txt");
+        } catch (EmptyFileNameException ex) {
+            ex.printStackTrace();
+        }
         SudokuBoard sb = new SudokuBoard();
         sb.fillBoard();
         d.write(sb);

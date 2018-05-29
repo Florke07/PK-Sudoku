@@ -1,5 +1,6 @@
 package sudokupart;
 
+import exceptions.WrongValueException;
 import org.junit.jupiter.api.Test;
 import sudoku.SudokuBoard;
 
@@ -27,7 +28,12 @@ class SudokuElementsTest {
         for (int i=1;i<=9;i++) {
             sf.add(new SudokuField(i));
         }
-        sf.get(3).setFieldValue(3);
+        try {
+            sf.get(3).setFieldValue(3);
+        } catch (WrongValueException ex) {
+            ex.printStackTrace();
+        }
+
         rw.add(sf);
         assertFalse(rw.verify());
     }
@@ -50,7 +56,12 @@ class SudokuElementsTest {
         for (int i=1;i<=9;i++) {
             sf.add(new SudokuField(i));
         }
-        sf.get(3).setFieldValue(3);
+        try {
+            sf.get(3).setFieldValue(3);
+        } catch (WrongValueException ex) {
+            ex.printStackTrace();
+        }
+
         cl.add(sf);
         assertFalse(cl.verify());
     }
@@ -73,7 +84,12 @@ class SudokuElementsTest {
         for (int i=1;i<=9;i++) {
             sf.add(new SudokuField(i));
         }
-        sf.get(3).setFieldValue(3);
+        try {
+            sf.get(3).setFieldValue(3);
+        } catch (WrongValueException ex) {
+            ex.printStackTrace();
+        }
+
         sb.add(sf);
         assertFalse(sb.verify());
     }
@@ -155,7 +171,12 @@ class SudokuElementsTest {
         SudokuBoard sb = new SudokuBoard();
         sb.fillBoard();
         for(int i = 0; i < 9;i++){
-            sb.setValue(i,0,i+1);
+            try {
+                sb.setValue(i,0,i+1);
+            } catch (WrongValueException ex) {
+                ex.printStackTrace();
+            }
+
         }
         SudokuElement se1 = sb.getColumn(0);
         assertEquals("[1, 2, 3, 4, 5, 6, 7, 8, 9]",se1.toString());
@@ -180,7 +201,12 @@ class SudokuElementsTest {
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
-        sb.setValue(0,0,0);
+        try {
+            sb.setValue(0,0,0);
+        } catch (WrongValueException ex) {
+            ex.printStackTrace();
+        }
+
 
         assertNotEquals(sf.getFieldValue(),sf2.getFieldValue());
         assertNotEquals(sb.getValue(0,0),sb2.getValue(0,0));

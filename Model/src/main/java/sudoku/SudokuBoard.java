@@ -1,5 +1,7 @@
 package sudoku;
 
+import exceptions.BacktrackingException;
+import exceptions.WrongValueException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sudokupart.SudokuBox;
@@ -32,7 +34,12 @@ public class SudokuBoard implements Serializable, Cloneable {
         makeBoard();
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                setValue(i, j, board.get(i).get(j).getFieldValue());
+                try {
+                    setValue(i, j, board.get(i).get(j).getFieldValue());
+                } catch (WrongValueException ex) {
+                    ex.printStackTrace();
+                }
+
             }
         }
     }
@@ -61,7 +68,13 @@ public class SudokuBoard implements Serializable, Cloneable {
     public boolean fillBoard() {
         initValuesToInsert();
         makeBoard();
-        if (BSS.solve(this, 0, 0)) {
+        boolean bss = false;
+        try {
+            bss = BSS.solve(this, 0, 0);
+        } catch (BacktrackingException ex) {
+            ex.printStackTrace();
+        }
+        if (bss) {
             return true;
         } else {
             logger.info("Brak rozwiazan");
@@ -123,7 +136,10 @@ public class SudokuBoard implements Serializable, Cloneable {
         }
     }
 
-    public void setValue(int x, int y, int value) {
+    public void setValue(int x, int y, int value) throws WrongValueException {
+        if (value < 0 || value > 9) {
+            throw new WrongValueException("Value must be between 0 nad 9");
+        }
         board2.get(x).get(y).setFieldValue(value);
     }
 
