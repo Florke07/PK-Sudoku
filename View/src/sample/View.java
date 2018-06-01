@@ -130,14 +130,7 @@ public class View extends Application {
 
                 SudokuBox sudokuBox;
                 sudokuBox = sb.getBox(i, j);
-                for(SudokuField h : sudokuBox.elements) {
-                    System.out.print(h.getFieldValue());
-                    System.out.print(h.isModifiable());
-                }
                 for (int x = 0; x < 9; x++) {
-                    //System.out.println("dupa");
-                    System.out.println(sudokuBox.elements.get(x).getFieldValue());
-                    System.out.println(sudokuBox.elements.get(x).isModifiable());
                     TextField tx = new TextField(String.valueOf(sudokuBox.elements.get(x).getFieldValue()));
                     tx.setPrefWidth(35);
                     tx.setPrefHeight(35);

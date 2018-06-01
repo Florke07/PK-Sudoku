@@ -124,7 +124,7 @@ public class SudokuBoard implements Serializable, Cloneable {
     }
 
     public void setValue(int x, int y, int value) {
-        board2.get(x).get(y).setFieldValue(value);
+        board2.get(y).get(x).setFieldValue(value);
     }
 
     public SudokuRow getRow(int y) {
@@ -168,7 +168,7 @@ public class SudokuBoard implements Serializable, Cloneable {
         return sb;
     }
 
-    public SudokuBox getBox(int x, int y) {
+    public SudokuBox getBox(int y, int x) {
         SudokuBox sb = new SudokuBox();
         ArrayList<SudokuField> sf = new ArrayList<>();
         int squareFirstRowNumber = x * 3;
