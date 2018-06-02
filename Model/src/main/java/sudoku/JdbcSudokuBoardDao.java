@@ -1,6 +1,11 @@
 package sudoku;
 
+import database.Database;
+
 public class JdbcSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
+
+    Database db = new Database();
+
     @Override
     public void close() throws Exception {
 
@@ -13,7 +18,7 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
 
     @Override
     public void write(SudokuBoard obj) {
-
+        db.connect();
     }
 
     @Override

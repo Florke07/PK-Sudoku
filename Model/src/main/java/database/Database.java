@@ -1,14 +1,18 @@
 package database;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.*;
 
-public class Create {
+public class Database {
     Connection connection;
     Statement statement;
     public String driver = "org.apache.derby.jdbc.EmbeddedDriver";
     private String framework = "embedded";
     private String protocol = "jdbc:derby:";
     private String dbName = "DB";
+    final Logger logger = LoggerFactory.getLogger(Database.class);
 
     public void connect() {
         //String url = " jdbc:derby:DB;create=true"; //In-memory, w pamięci a nie w plikach
@@ -17,7 +21,7 @@ public class Create {
             connection = DriverManager.getConnection(protocol + dbName + ";create=true");
             connection.setAutoCommit(false);
             statement = connection.createStatement();
-            System.out.println("Connected to and created database " + dbName);
+           logger.info("Connected to and created database " + dbName);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -32,6 +36,24 @@ public class Create {
             ex.printStackTrace();
         }
 
+    }
+
+    public void createTableBoard() {
+
+        try {
+            DatabaseMetaData dmd = connection.getMetaData();
+            ResultSet rs = dmd.getTables(null, "APP", "BOARDS", null);
+            if (!rs.next()) {
+                statement.executeUpdate("create table boards (id int primary key, name varchar(50))");
+                connection.commit();
+                logger.info("Created table boards");
+            } else {
+                logger.info("Table boards already exists");
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void addToUsers() {
@@ -57,6 +79,18 @@ public class Create {
         }
     }
 
+    public void selectBoards() {
+        try {
+            ResultSet rs = statement.executeQuery("select * from boards");
+            connection.commit();
+            while (rs.next()) {
+                System.out.println("ID: "+rs.getInt("id")+" Name: "+rs.getString("name"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void deleteDB() {
         try {
             statement.execute("drop table users");
@@ -74,9 +108,9 @@ public class Create {
             catch (SQLException se)
             {
                 if (( (se.getErrorCode() == 50000) && ("XJ015".equals(se.getSQLState()) ))) {
-                    System.out.println("Derby shut down normally");
+                   logger.info("Derby shut down normally");
                 } else {
-                    System.err.println("Derby did not shut down normally");
+                    logger.info("Derby did not shut down normally");
 
                 }
             }

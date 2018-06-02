@@ -1,17 +1,18 @@
 package sudoku;
 
-import database.Create;
+import database.Database;
 
 public class Main {
     public static void main(final String[] args) {
-        Create db = new Create();
+        Database db = new Database();
         db.connect();
         //db.deleteDB();
-        db.createTableUsers();
-        db.selectUsers();
-        System.out.println("Dodajmy");
-        db.addToUsers();
-        db.selectUsers();
-        db.deleteDB();
+        //db.createTableUsers();
+        //db.selectUsers();
+        //System.out.println("Dodajmy");
+        //db.addToUsers();
+        //db.selectUsers();
+        //db.deleteDB();
+        db.createTableBoard();
     }
 }
