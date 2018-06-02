@@ -10,4 +10,9 @@ public class SudokuBoardDaoFactory {
         FileSudokuBoardDao dao = new FileSudokuBoardDao(fileName);
         return dao;
     }
+
+    public Dao getJdbcDao() {
+        JdbcSudokuBoardDao dao = new JdbcSudokuBoardDao();
+        return dao;
+    }
 }
