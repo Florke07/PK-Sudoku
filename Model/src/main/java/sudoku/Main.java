@@ -13,6 +13,9 @@ public class Main {
         //db.addToUsers();
         //db.selectUsers();
         //db.deleteDB();
-        db.createTableBoard();
+        //db.drop();
+        db.createTableFields();
+        db.createTableColumns();
+        db.createTableBoards();
     }
 }
