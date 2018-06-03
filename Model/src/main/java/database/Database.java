@@ -2,17 +2,21 @@ package database;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sudoku.SudokuBoard;
+import sudokupart.SudokuColumn;
+import sudokupart.SudokuField;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Database {
     Connection connection;
     Statement statement;
-    public String driver = "org.apache.derby.jdbc.EmbeddedDriver";
     private String framework = "embedded";
     private String protocol = "jdbc:derby:";
     private String dbName = "DB";
     final Logger logger = LoggerFactory.getLogger(Database.class);
+    private int nb=0;
 
     public void connect() {
         //String url = " jdbc:derby:DB;create=true"; //In-memory, w pamięci a nie w plikach
@@ -21,14 +25,48 @@ public class Database {
             connection = DriverManager.getConnection(protocol + dbName + ";create=true");
             connection.setAutoCommit(false);
             statement = connection.createStatement();
-           logger.info("Connected to and created database " + dbName);
+            logger.info("Connected to and created database " + dbName);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
 
     }
 
-    public void createTableBoards() {
+    private void insertField(SudokuField sf) {
+
+    }
+
+    private void insertColumn(SudokuColumn sc, String bName) {
+
+    }
+
+    public void insertBoard(SudokuBoard sb) {
+        ArrayList<SudokuColumn> columns = new ArrayList<>();
+        String nm = "Board"+Integer.toString(nb);
+        for (int i=0;i<9;i++) {
+            columns.add(sb.getColumn(i));
+            insertColumn(columns.get(i), nm);
+        }
+        nb++;
+    }
+
+    public void dropTables() {
+        try {
+            statement.executeUpdate("drop table boards");
+            statement.executeUpdate("drop table columns");
+            statement.executeUpdate("drop table fields");
+            connection.commit();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void createTables() {
+        createTableFields();
+        createTableColumns();
+        createTableBoards();
+    }
+
+    private void createTableBoards() {
         try {
             DatabaseMetaData dmd = connection.getMetaData();
             ResultSet rs = dmd.getTables(null, "APP", "BOARDS", null);
@@ -66,7 +104,7 @@ public class Database {
         }
     }
 
-    public void createTableColumns() {
+    private void createTableColumns() {
         try {
             DatabaseMetaData dmd = connection.getMetaData();
             ResultSet rs = dmd.getTables(null, "APP", "COLUMNS", null);
@@ -102,7 +140,7 @@ public class Database {
         }
     }
 
-    public void createTableFields() {
+    private void createTableFields() {
         try {
             DatabaseMetaData dmd = connection.getMetaData();
             ResultSet rs = dmd.getTables(null, "APP", "FIELDS", null);
@@ -122,17 +160,7 @@ public class Database {
         }
     }
 
-    public void drop() {
-        try {
-            statement.executeUpdate("drop table boards");
-            statement.executeUpdate("drop table columns");
-            statement.executeUpdate("drop table fields");
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void addToUsers() {
+   /* public void addToUsers() {
         try {
             statement.executeUpdate("insert into users values (1,'jan')");
             statement.executeUpdate("insert into users values (2,'kowalski')");
@@ -140,10 +168,10 @@ public class Database {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-    }
+    }*/
 
 
-    public void selectUsers() {
+   /* public void selectUsers() {
         try {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM users");
             connection.commit();
@@ -153,23 +181,11 @@ public class Database {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-    }
-
-    public void selectBoards() {
-        try {
-            ResultSet rs = statement.executeQuery("select * from boards");
-            connection.commit();
-            while (rs.next()) {
-                System.out.println("ID: "+rs.getInt("id")+" Name: "+rs.getString("name"));
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
+    }*/
 
     public void deleteDB() {
         try {
-            statement.execute("drop table users");
+            dropTables();
             connection.commit();
         } catch (SQLException ex) {
             ex.printStackTrace();
