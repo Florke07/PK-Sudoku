@@ -12,6 +12,6 @@ public class Main {
         sb.fillBoard();
         db.insertBoard(sb);
 
-        db.read("Board0");
+//        db.read("Board0");
     }
 }

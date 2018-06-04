@@ -229,21 +229,19 @@ public class Database {
         ArrayList<Integer> columns = new ArrayList<>();
         ArrayList<Integer> fields = new ArrayList<>();
         try {
-            String sql = "select * from BOARDS where NAME = ?";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, name);
-            rs = ps.executeQuery();
-
+            Statement ps = connection.createStatement();
+            rs = ps.executeQuery("select * from BOARDS where NAME = '" + name +"'");
+            connection.commit();
             for (int i=0;i<9;i++) {
-                columns.add(rs.getInt("COL0"));
+                columns.add(rs.getInt(3));
             }
 
-            String sql2 = "selct * from COLUMNS where ID = ?";
-            PreparedStatement ps2 = connection.prepareStatement(sql2);
+            //String sql2 = "selct * from COLUMNS where ID = '?'";
+            Statement ps2 = connection.createStatement();
 
             for (int j=0;j<9;j++) {
-                ps2.setInt(1, columns.get(j));
-                rs = ps2.executeQuery();
+                //ps2.setInt(1, columns.get(j));
+                rs = ps2.executeQuery("selct * from COLUMNS where ID = '"+columns.get(j)+"'");
                 connection.commit();
                 fields.add(rs.getInt("FIELD0"));
                 fields.add(rs.getInt("FIELD1"));
@@ -266,10 +264,10 @@ public class Database {
         for (int i=0;i<9;i++) {
             for (int j=0;j<9;j++) {
                 try {
-                    String s1 = "select NUMER as NUMER from FIELDS where ID = ?";
-                    PreparedStatement p1 = connection.prepareStatement(s1);
-                    p1.setInt(1, fields.get(i));
-                    nresult = p1.executeQuery();
+                    //String s1 = "select NUMER as NUMER from FIELDS where ID = '?'";
+                    Statement p1 = connection.createStatement();
+                    //p1.setInt(1, fields.get(i));
+                    nresult = p1.executeQuery("select NUMER as NUMER from FIELDS where ID = '"+fields.get(i)+"'");
                     nsb.setValue(i, j, nresult.getInt("NUMER"));
                 } catch (SQLException e) {
                     e.printStackTrace();
