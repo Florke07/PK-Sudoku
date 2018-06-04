@@ -162,7 +162,7 @@ public class View extends Application {
             for (int j = 0; j < 3; j++) {
                 for(int x = 0; x<3;x++){
                     for(int y = 0; y<3;y++){
-                        sb.setValue((i*3)+x,(j*3)+y,Integer.parseInt(fields.get(k).getText()));
+                        sb.setValue((i*3)+y,(j*3)+x,Integer.parseInt(fields.get(k).getText()));
                         k++;
                     }
                 }
