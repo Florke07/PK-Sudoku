@@ -1,5 +1,6 @@
 package database;
 
+import exceptions.WrongValueException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sudoku.SudokuBoard;
@@ -223,18 +224,63 @@ public class Database {
         }
     }
 
-    public void read(String name) {
+    public SudokuBoard read(String name) {
         ResultSet rs = null;
-
+        ArrayList<Integer> columns = new ArrayList<>();
+        ArrayList<Integer> fields = new ArrayList<>();
         try {
             String sql = "select * from BOARDS where NAME = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, name);
             rs = ps.executeQuery();
 
+            for (int i=0;i<9;i++) {
+                columns.add(rs.getInt("COL0"));
+            }
+
+            String sql2 = "selct * from COLUMNS where ID = ?";
+            PreparedStatement ps2 = connection.prepareStatement(sql2);
+
+            for (int j=0;j<9;j++) {
+                ps2.setInt(1, columns.get(j));
+                rs = ps2.executeQuery();
+                connection.commit();
+                fields.add(rs.getInt("FIELD0"));
+                fields.add(rs.getInt("FIELD1"));
+                fields.add(rs.getInt("FIELD2"));
+                fields.add(rs.getInt("FIELD3"));
+                fields.add(rs.getInt("FIELD4"));
+                fields.add(rs.getInt("FIELD5"));
+                fields.add(rs.getInt("FIELD6"));
+                fields.add(rs.getInt("FIELD7"));
+                fields.add(rs.getInt("FIELD8"));
+            }
         } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        ResultSet nresult = null;
+
+        SudokuBoard nsb = new SudokuBoard();
+        nsb.fillBoard();
+        int k=0;
+        for (int i=0;i<9;i++) {
+            for (int j=0;j<9;j++) {
+                try {
+                    String s1 = "select NUMER as NUMER from FIELDS where ID = ?";
+                    PreparedStatement p1 = connection.prepareStatement(s1);
+                    p1.setInt(1, fields.get(i));
+                    nresult = p1.executeQuery();
+                    nsb.setValue(i, j, nresult.getInt("NUMER"));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (WrongValueException w) {
+                    w.printStackTrace();
+                }
+
+            }
 
         }
+        return nsb;
     }
 
     public void shutdownDB() {
