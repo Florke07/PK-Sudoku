@@ -8,5 +8,10 @@ public class Main {
         db.connect();
         db.dropTables();
         db.createTables();
+        SudokuBoard sb = new SudokuBoard();
+        sb.fillBoard();
+        db.insertBoard(sb);
+
+        db.read("Board0");
     }
 }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import static org.apache.commons.lang3.builder.ToStringStyle.SIMPLE_STYLE;
 
 public class SudokuElement implements Serializable, Cloneable {
-    protected ArrayList<SudokuField> elements;
+    public ArrayList<SudokuField> elements;
 
     public boolean verify() {
         int counter = 0;
