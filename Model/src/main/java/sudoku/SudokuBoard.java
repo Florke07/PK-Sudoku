@@ -84,13 +84,13 @@ public class SudokuBoard implements Serializable, Cloneable {
 
 
     public boolean isOk(int currentRowPosition, int currentColumnPosition, int valueToCheck) {
-        for (int i=0; i < 9; i++) {
+        for (int i = 0; i < 9; i++) {
             if (board2.get(currentRowPosition).get(i).getFieldValue() == valueToCheck) {
                 return false;
             }
         }
 
-        for (int i=0; i < 9; i++) {
+        for (int i = 0; i < 9; i++) {
             if (board2.get(i).get(currentColumnPosition).getFieldValue() == valueToCheck) {
                 return false;
             }
@@ -119,11 +119,11 @@ public class SudokuBoard implements Serializable, Cloneable {
 
     public boolean checkBoard() {
         ArrayList<SudokuColumn> sc = new ArrayList<>();
-        int licznik=0;
+        int licznik = 0;
         for (int i = 0; i < 9; i++) {
             sc.add(getColumn(i));
         }
-        for (SudokuColumn c: sc) {
+        for (SudokuColumn c : sc) {
             if (c.verify()) {
                 licznik++;
             }
@@ -157,25 +157,25 @@ public class SudokuBoard implements Serializable, Cloneable {
         SudokuRow row = new SudokuRow();
         ArrayList<SudokuField> sf = new ArrayList<>();
         int i = var;
-            for (int j = 0; j < 9; j++) {
-                sf.add(board2.get(i).get(j));
-            }
-            row.add(sf);
+        for (int j = 0; j < 9; j++) {
+            sf.add(board2.get(i).get(j));
+        }
+        row.add(sf);
         return row;
     }
 
     public SudokuColumn getColumn(int x) {
         int var = x % 9;
         SudokuColumn col = new SudokuColumn();
-        ArrayList<SudokuField> sf =new ArrayList<>();
-            for (int j = 0; j < 9; j = j + 1) {
-                sf.add(board2.get(j).get(var));
-            }
+        ArrayList<SudokuField> sf = new ArrayList<>();
+        for (int j = 0; j < 9; j = j + 1) {
+            sf.add(board2.get(j).get(var));
+        }
         col.add(sf);
         return col;
     }
 
-    public SudokuBox getBox(int x, int y) {
+    public SudokuBox getBoxThatIAmIn(int x, int y) {
         SudokuBox sb = new SudokuBox();
         ArrayList<SudokuField> sf = new ArrayList<>();
         int squareFirstRowNumber = 3 * (x / 3);
@@ -190,6 +190,25 @@ public class SudokuBoard implements Serializable, Cloneable {
             }
         }
         sb.add(sf);
+        return sb;
+    }
+
+    public SudokuBox getBox(int y, int x) {
+        SudokuBox sb = new SudokuBox();
+        ArrayList<SudokuField> sf = new ArrayList<>();
+        int squareFirstRowNumber = x * 3;
+        int squareFirstColumnNumber = y * 3;
+
+        int squareEndRowNumber = squareFirstRowNumber + 3;
+        int squareEndColumnNumber = squareFirstColumnNumber + 3;
+
+        for (int i = squareFirstRowNumber; i < squareEndRowNumber; i++) {
+            for (int j = squareFirstColumnNumber; j < squareEndColumnNumber; j++) {
+                sf.add(board2.get(i).get(j));
+            }
+        }
+        sb.add(sf);
+
         return sb;
     }
 
