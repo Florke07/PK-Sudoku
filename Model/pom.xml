@@ -10,9 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>ModelProject</artifactId>
-    <name>javadb-derby-embedded-basic</name>
-    <url>http://maven.apache.org</url>
-
 
     <build>
         <plugins>

@@ -1,11 +1,14 @@
 package database;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import exceptions.WrongValueException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sudoku.SudokuBoard;
 import sudokupart.SudokuColumn;
 import sudokupart.SudokuField;
+
+import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -224,7 +227,7 @@ public class Database {
         }
     }
 
-    public SudokuBoard read(String name) {
+    /*public SudokuBoard read(String name) {
         ResultSet rs = null;
         ArrayList<Integer> columns = new ArrayList<>();
         ArrayList<Integer> fields = new ArrayList<>();
@@ -279,8 +282,52 @@ public class Database {
 
         }
         return nsb;
-    }
+    }*/
 
+    public SudokuBoard read(String name) {
+        SudokuBoard nsb = new SudokuBoard();
+        nsb.fillBoard();
+        ArrayList<Integer> fields = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            rs = statement.executeQuery("SELECT * FROM COLUMNS");
+            while (rs.next()) {
+                if (rs.getString("BOARDNAME").equals("Board0")) {
+                    fields.add(rs.getInt(3));
+                    fields.add(rs.getInt(4));
+                    fields.add(rs.getInt(5));
+                    fields.add(rs.getInt(6));
+                    fields.add(rs.getInt(7));
+                    fields.add(rs.getInt(8));
+                    fields.add(rs.getInt(9));
+                    fields.add(rs.getInt(10));
+                    fields.add(rs.getInt(11));
+
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        ResultSet rs2 = null;
+        try {
+            rs2 = statement.executeQuery("SELECT * FROM FIELDS");
+            int k=0;
+            while (rs2.next()) {
+                for (int i=0;i<9;i++) {
+                    for (int j=0;j<9;j++) {
+                        if (rs2.getInt(1) == k) {
+                            nsb.setValue(j,i,rs2.getInt(2), Boolean.getBoolean(rs2.getString(3)));
+                        }
+                        k++;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nsb;
+    }
     public void shutdownDB() {
 
         if (framework.equals("embedded"))

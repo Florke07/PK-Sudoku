@@ -151,11 +151,9 @@ public class View extends Application {
     }
 
     private void makeDao() {
-        try {
-            dao = factory.getFileDao("view.ser");
-        } catch (EmptyFileNameException ex) {
-            ex.printStackTrace();
-        }
+
+            dao = factory.getJdbcDao();
+
 
     }
 }
