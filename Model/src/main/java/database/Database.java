@@ -116,8 +116,6 @@ public class Database {
                     j++;
                 }
 
-
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
