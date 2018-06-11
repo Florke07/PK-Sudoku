@@ -146,7 +146,7 @@ public class SudokuBoard implements Serializable, Cloneable {
     public void setValue(int y, int x, int value, boolean modify)  {
         try {
             board2.get(x).get(y).setFieldValue(value);
-            board2.get(x).get(y).setModifiable(modify);
+            board2.get(y).get(x).setModifiable(modify);
         } catch (WrongValueException wrr) {
 
         }
